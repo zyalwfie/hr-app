@@ -5,7 +5,7 @@
         <div class="flex items-center px-6 pt-4">
             <!-- Logo -->
             <a class="focus:outline-hidden inline-block flex-none rounded-xl text-xl font-semibold focus:opacity-80"
-                href="{{ route('admin.dashboard.index') }}" aria-label="Preline">
+                href="{{ route('dashboard') }}" aria-label="Preline">
                 <h1>Human Resources.</h1>
             </a>
             <!-- End Logo -->
@@ -16,18 +16,110 @@
             class="h-full overflow-y-auto [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 [&::-webkit-scrollbar-track]:bg-gray-100 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 [&::-webkit-scrollbar]:w-2">
             <nav class="hs-accordion-group flex w-full flex-col flex-wrap p-3" data-hs-accordion-always-open>
                 <ul class="flex flex-col space-y-1">
-                    <li>
-                        <a class="focus:outline-hidden flex items-center gap-x-3.5 rounded-lg bg-gray-100 px-2.5 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                            href="#">
-                            <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24"
-                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                                <polyline points="9 22 9 12 15 12 15 22" />
-                            </svg>
-                            Dashboard
-                        </a>
-                    </li>
+                    <x-side-nav-item :href="route('dashboard')" :currentPage="Route::is('dashboard')">
+                        <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                            <polyline points="9 22 9 12 15 12 15 22" />
+                        </svg>
+                        Dashboard
+                    </x-side-nav-item>
+                    <x-side-nav-item :href="route('tasks.index')" :currentPage="Route::is('tasks*')">
+                        <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-book-open-check-icon lucide-book-open-check">
+                            <path d="M12 21V7" />
+                            <path d="m16 12 2 2 4-4" />
+                            <path
+                                d="M22 6V4a1 1 0 0 0-1-1h-5a4 4 0 0 0-4 4 4 4 0 0 0-4-4H3a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h6a3 3 0 0 1 3 3 3 3 0 0 1 3-3h6a1 1 0 0 0 1-1v-1.3" />
+                        </svg>
+                        Task
+                    </x-side-nav-item>
+                    <x-side-nav-item :href="route('employees.index')" :currentPage="Route::is('employees*')">
+                        <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-users-round-icon lucide-users-round">
+                            <path d="M18 21a8 8 0 0 0-16 0" />
+                            <circle cx="10" cy="8" r="5" />
+                            <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" />
+                        </svg>
+                        Employee
+                    </x-side-nav-item>
+                    <x-side-nav-item :href="route('departments.index')" :currentPage="Route::is('departments*')">
+                        <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-building-icon lucide-building">
+                            <path d="M12 10h.01" />
+                            <path d="M12 14h.01" />
+                            <path d="M12 6h.01" />
+                            <path d="M16 10h.01" />
+                            <path d="M16 14h.01" />
+                            <path d="M16 6h.01" />
+                            <path d="M8 10h.01" />
+                            <path d="M8 14h.01" />
+                            <path d="M8 6h.01" />
+                            <path d="M9 22v-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3" />
+                            <rect x="4" y="2" width="16" height="20" rx="2" />
+                        </svg>
+                        Department
+                    </x-side-nav-item>
+                    <x-side-nav-item :href="route('roles.index')" :currentPage="Route::is('roles*')">
+                        <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-user-lock-icon lucide-user-lock">
+                            <circle cx="10" cy="7" r="4" />
+                            <path d="M10.3 15H7a4 4 0 0 0-4 4v2" />
+                            <path d="M15 15.5V14a2 2 0 0 1 4 0v1.5" />
+                            <rect width="8" height="5" x="13" y="16" rx=".899" />
+                        </svg>
+                        Role
+                    </x-side-nav-item>
+                    <x-side-nav-item :href="route('presences.index')" :currentPage="Route::is('presences*')">
+                        <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-calendar-check2-icon lucide-calendar-check-2">
+                            <path d="M8 2v4" />
+                            <path d="M16 2v4" />
+                            <path d="M21 14V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8" />
+                            <path d="M3 10h18" />
+                            <path d="m16 20 2 2 4-4" />
+                        </svg>
+                        Presence
+                    </x-side-nav-item>
+                    <x-side-nav-item :href="route('payrolls.index')" :currentPage="Route::is('payrolls*')">
+                        <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-banknote-arrow-down-icon lucide-banknote-arrow-down">
+                            <path d="M12 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5" />
+                            <path d="m16 19 3 3 3-3" />
+                            <path d="M18 12h.01" />
+                            <path d="M19 16v6" />
+                            <path d="M6 12h.01" />
+                            <circle cx="12" cy="12" r="2" />
+                        </svg>
+                        Payroll
+                    </x-side-nav-item>
+                    <x-side-nav-item :href="route('leave-requests.index')" :currentPage="Route::is('leave-requests*')">
+                        <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24"
+                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-calendar-off-icon lucide-calendar-off">
+                            <path d="M4.2 4.2A2 2 0 0 0 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 1.82-1.18" />
+                            <path d="M21 15.5V6a2 2 0 0 0-2-2H9.5" />
+                            <path d="M16 2v4" />
+                            <path d="M3 10h7" />
+                            <path d="M21 10h-5.5" />
+                            <path d="m2 2 20 20" />
+                        </svg>
+                        Leave Request
+                    </x-side-nav-item>
 
                     {{-- Accordion Item --}}
                     {{-- <li class="hs-accordion" id="users-accordion">
@@ -158,56 +250,6 @@
                             </ul>
                         </div>
                     </li> --}}
-
-                    <li>
-                        <a class="focus:outline-hidden flex w-full items-center gap-x-3.5 rounded-lg px-2.5 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                            href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-check-icon lucide-clipboard-check size-4 shrink-0"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg>
-                            Task
-                        </a>
-                    </li>
-                    <li>
-                        <a class="focus:outline-hidden flex w-full items-center gap-x-3.5 rounded-lg px-2.5 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                            href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users-round-icon lucide-users-round size-4 shrink-0"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg>
-                            Employee
-                        </a>
-                    </li>
-                    <li>
-                        <a class="focus:outline-hidden flex w-full items-center gap-x-3.5 rounded-lg px-2.5 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                            href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-lock-icon lucide-user-lock size-4 shrink-0"><circle cx="10" cy="7" r="4"/><path d="M10.3 15H7a4 4 0 0 0-4 4v2"/><path d="M15 15.5V14a2 2 0 0 1 4 0v1.5"/><rect width="8" height="5" x="13" y="16" rx=".899"/></svg>
-                            Role
-                        </a>
-                    </li>
-                    <li>
-                        <a class="focus:outline-hidden flex w-full items-center gap-x-3.5 rounded-lg px-2.5 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                            href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-check2-icon lucide-calendar-check-2 size-4 shrink-0"><path d="M8 2v4"/><path d="M16 2v4"/><path d="M21 14V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"/><path d="M3 10h18"/><path d="m16 20 2 2 4-4"/></svg>
-                            Presence
-                        </a>
-                    </li>
-                    <li>
-                        <a class="focus:outline-hidden flex w-full items-center gap-x-3.5 rounded-lg px-2.5 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                            href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-banknote-arrow-up-icon lucide-banknote-arrow-up size-4 shrink-0"><path d="M12 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5"/><path d="M18 12h.01"/><path d="M19 22v-6"/><path d="m22 19-3-3-3 3"/><path d="M6 12h.01"/><circle cx="12" cy="12" r="2"/></svg>
-                            Payroll
-                        </a>
-                    </li>
-                    <li>
-                        <a class="focus:outline-hidden flex w-full items-center gap-x-3.5 rounded-lg px-2.5 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                            href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-off-icon lucide-calendar-off size-4 shrink-0"><path d="M4.2 4.2A2 2 0 0 0 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 1.82-1.18"/><path d="M21 15.5V6a2 2 0 0 0-2-2H9.5"/><path d="M16 2v4"/><path d="M3 10h7"/><path d="M21 10h-5.5"/><path d="m2 2 20 20"/></svg>
-                            Leave Request
-                        </a>
-                    </li>
-                    <li>
-                        <a class="focus:outline-hidden flex w-full items-center gap-x-3.5 rounded-lg px-2.5 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-                            href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out size-4 shrink-0"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
-                            Logout
-                        </a>
-                    </li>
                 </ul>
             </nav>
         </div>
