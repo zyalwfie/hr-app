@@ -112,7 +112,7 @@
                     <div class="sm:col-span-9">
                         <div class="relative">
                             <select name="assigned_to" id="assigned_to"
-                                class="@error('description') border-red-500 @enderror shadow-2xs block w-full rounded-lg border-gray-200 px-3 py-1.5 pe-9 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:py-2 sm:text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                                class="@error('assigned_to') border-red-500 @enderror shadow-2xs block w-full rounded-lg border-gray-200 px-3 py-1.5 pe-9 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:py-2 sm:text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                                 <option selected value="">Select an employee</option>
                                 @foreach ($employees as $employee)
                                     <option {{ old('assigned_to') == $employee->id ? 'selected' : '' }}

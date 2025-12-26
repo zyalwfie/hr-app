@@ -12,6 +12,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('scripts')
+    @stack('head_css')
 </head>
 
 <body>

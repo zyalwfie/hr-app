@@ -11,13 +11,16 @@ use App\Http\Controllers\PresenceController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TaskController;
 
-Route::get('/', function() {
+Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function() {
+Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::resource('/tasks', TaskController::class);
+    Route::patch('/tasks/{task}/restore', [TaskController::class, 'restore'])->withTrashed()->name('tasks.restore');
+
     Route::resource('/employees', EmployeeController::class);
     Route::resource('/departments', DepartmentController::class);
     Route::resource('/roles', RoleController::class);
@@ -32,4 +35,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
