@@ -309,7 +309,7 @@
                                                                         </a>
                                                                     @endif
                                                                     <a class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
-                                                                        href="#">
+                                                                        href="{{ route('tasks.edit', $task->id) }}">
                                                                         <svg class="size-4"
                                                                             xmlns="http://www.w3.org/2000/svg"
                                                                             width="24" height="24"

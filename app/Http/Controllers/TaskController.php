@@ -62,17 +62,33 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Task $task)
     {
-        //
+        $employees = Employee::orderBy('fullname')->get();
+
+        return view('dashboard.tasks.edit', compact('task', 'employees'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Task $task)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|max:255|string',
+            'description' => 'nullable|string',
+            'assigned_to' => 'required|exists:employees,id',
+            'due_date' => 'required|date',
+            'status' => 'required'
+        ]);
+
+        $date = $validated['due_date'];
+        $formattedDate = Carbon::parse($date)->format('Y-m-d');
+        $validated['due_date'] = $formattedDate;
+
+        $task->update($validated);
+
+        return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
     }
 
     /**
