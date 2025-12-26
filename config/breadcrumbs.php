@@ -5,20 +5,26 @@ return [
         ['label' => 'Dashboard', 'route' => 'dashboard'],
     ],
 
-    'tasks.index' => [
+    'tasks_index' => [
         ['label' => 'Dashboard', 'route' => 'dashboard'],
         ['label' => 'Tasks'],
     ],
 
-    'tasks.create' => [
+    'tasks_create' => [
         ['label' => 'Dashboard', 'route' => 'dashboard'],
         ['label' => 'Tasks', 'route' => 'tasks.index'],
         ['label' => 'Create'],
     ],
 
-    'tasks.edit' => [
+    'tasks_edit' => [
         ['label' => 'Dashboard', 'route' => 'dashboard'],
         ['label' => 'Tasks', 'route' => 'tasks.index'],
         ['label' => 'Edit'],
     ],
+
+    'tasks_show' => [
+        ['label' => 'Dashboard', 'route' => 'dashboard'],
+        ['label' => 'Tasks', 'route' => 'tasks.index'],
+        ['label' => 'Create']
+    ]
 ];

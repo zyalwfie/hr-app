@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('*', function ($view) {
             $routeName = Route::currentRouteName();
+            $routeName = str_replace('.', '_', Route::currentRouteName());
             $breadcrumbs = config("breadcrumbs.$routeName", []);
 
             $view->with('breadcrumbs', $breadcrumbs);
