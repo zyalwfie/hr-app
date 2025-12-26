@@ -19,11 +19,16 @@
             'class' => 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
             'icon' => 'check',
         ],
+        'active' => [
+            'label' => 'Active',
+            'class' => 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200',
+            'icon' => 'check',
+        ],
     ];
 
     $config = $map[$status] ?? [
         'label' => ucfirst($status),
-        'class' => 'bg-gray-100 text-gray-800 dark:bg-neutral-800 dark:text-neutral-200',
+        'class' => 'bg-zinc-100 text-zinc-800 dark:bg-neutral-800 dark:text-neutral-200',
         'icon' => null,
     ];
 @endphp

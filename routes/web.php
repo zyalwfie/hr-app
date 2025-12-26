@@ -25,6 +25,7 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () 
     Route::patch('/tasks/{task}/restore', [TaskController::class, 'restore'])->withTrashed()->name('tasks.restore');
 
     Route::resource('/employees', EmployeeController::class);
+    
     Route::resource('/departments', DepartmentController::class);
     Route::resource('/roles', RoleController::class);
     Route::resource('/presences', PresenceController::class);
