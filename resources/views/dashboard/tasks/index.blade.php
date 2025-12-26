@@ -211,7 +211,9 @@
                                                 </div>
                                             </td>
                                             <td class="h-px w-auto whitespace-nowrap">
-                                                <x-mark-status :status="$task->status" />
+                                                <div class="px-6 py-2">
+                                                    <x-mark-status :status="$task->status" />
+                                                </div>
                                             </td>
 
                                             <td class="size-px whitespace-nowrap">
@@ -220,7 +222,7 @@
                                                         class="shadow-2xs group inline-flex items-center divide-x divide-gray-300 rounded-lg border border-gray-300 bg-white transition-all dark:divide-neutral-700 dark:border-neutral-700 dark:bg-neutral-700">
                                                         <div class="hs-tooltip inline-block">
                                                             <a class="hs-tooltip-toggle shadow-2xs focus:outline-hidden inline-flex items-center justify-center gap-x-2 rounded-s-md bg-white px-2 py-1.5 text-sm font-semibold text-gray-800 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
-                                                                href="#">
+                                                                href="{{ route('tasks.show', $task->id) }}">
                                                                 <svg class="size-4" xmlns="http://www.w3.org/2000/svg"
                                                                     width="24" height="24" viewBox="0 0 24 24"
                                                                     fill="none" stroke="currentColor"
@@ -577,7 +579,7 @@
                 if (!window.__toastSuccessMessage) return;
 
                 const toastMarkup1 = `
-                    <div class="relative max-w-max rounded-xl border border-gray-200 bg-white shadow-lg dark:border-neutral-700 dark:bg-neutral-800 overflow-hidden"
+                    <div class="relative max-w-xs rounded-xl border border-gray-200 bg-white shadow-lg dark:border-neutral-700 dark:bg-neutral-800 overflow-hidden"
                         role="alert" tabindex="-1" aria-labelledby="hs-toast-restore-label">
                         <div class="flex p-4">
                             <div class="shrink-0">

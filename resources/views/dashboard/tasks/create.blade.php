@@ -21,15 +21,15 @@
                             Create a new task
                         </h2>
                         <a href="{{ route('tasks.index') }}"
-                            class="shadow-2xs focus:outline-hidden inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-800 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
-                            <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            class="flex cursor-pointer items-center justify-center gap-x-1.5 rounded-lg border border-gray-200 px-2.5 py-1.5 text-[13px] text-gray-800 hover:border-indigo-100 hover:bg-indigo-50 hover:text-indigo-700 focus:border-indigo-100 focus:bg-indigo-50 focus:text-indigo-700 focus:outline-none dark:border-neutral-700 dark:text-neutral-200 dark:hover:border-indigo-500/20 dark:hover:bg-indigo-500/20 dark:hover:text-indigo-400 dark:focus:border-indigo-500/20 dark:focus:bg-indigo-500/20 dark:focus:text-indigo-400">
+                            <svg class="size-3.5 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round"
                                 class="lucide lucide-arrow-left-icon lucide-arrow-left">
                                 <path d="m12 19-7-7 7-7" />
                                 <path d="M19 12H5" />
                             </svg>
-                            Back to data
+                            Back to list
                         </a>
                     </div>
                     <!-- End Col -->
