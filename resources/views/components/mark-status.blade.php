@@ -10,8 +10,8 @@
             'icon' => 'warning',
         ],
         'progress' => [
-            'label' => 'In Progress',
-            'class' => 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
+            'label' => 'Progress',
+            'class' => 'bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-200',
             'icon' => 'loader',
         ],
         'complete' => [

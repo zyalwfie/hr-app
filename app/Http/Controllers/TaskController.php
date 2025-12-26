@@ -92,6 +92,42 @@ class TaskController extends Controller
     }
 
     /**
+     * Update status task as pending
+     */
+    public function markAsPending(Task $task)
+    {
+        $task->update([
+            'status' => 'pending'
+        ]);
+
+        return redirect()->route('tasks.index')->with('success', 'Task marked as pending.');
+    }
+
+    /**
+     * Update status task as progress
+     */
+    public function markAsProgress(Task $task)
+    {
+        $task->update([
+            'status' => 'progress'
+        ]);
+
+        return redirect()->route('tasks.index')->with('success', 'Task marked as progress.');
+    }
+
+    /**
+     * Update status task as complete
+     */
+    public function markAsComplete(Task $task)
+    {
+        $task->update([
+            'status' => 'complete'
+        ]);
+
+        return redirect()->route('tasks.index')->with('success', 'Task marked as complete.');
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Task $task)

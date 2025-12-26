@@ -19,6 +19,9 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('/tasks', TaskController::class);
+    Route::patch('/tasks/{task}/pending', [TaskController::class, 'markAsPending'])->name('tasks.pending');
+    Route::patch('/tasks/{task}/progress', [TaskController::class, 'markAsProgress'])->name('tasks.progress');
+    Route::patch('/tasks/{task}/complete', [TaskController::class, 'markAsComplete'])->name('tasks.complete');
     Route::patch('/tasks/{task}/restore', [TaskController::class, 'restore'])->withTrashed()->name('tasks.restore');
 
     Route::resource('/employees', EmployeeController::class);
