@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('logo-light.svg') }}" type="image/svg" />
+    <link rel="shortcut icon" href="{{ asset('logo-dark.svg') }}" media="(prefers-color-scheme: dark)" type="image/svg" />
+    <link rel="shortcut icon" href="{{ asset('logo-light.svg') }}" media="(prefers-color-scheme: light)" type="image/svg" />
 
     <title>{{ $title }}</title>
 

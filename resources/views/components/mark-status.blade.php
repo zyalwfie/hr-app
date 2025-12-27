@@ -24,6 +24,11 @@
             'class' => 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200',
             'icon' => 'check',
         ],
+        'inactive' => [
+            'label' => 'Inactive',
+            'class' => 'bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-200',
+            'icon' => 'inactive',
+        ],
     ];
 
     $config = $map[$status] ?? [
@@ -68,6 +73,25 @@
             class="lucide lucide-circle-check-big-icon lucide-circle-check-big">
             <path d="M21.801 10A10 10 0 1 1 17 3.335" />
             <path d="m9 11 3 3L22 4" />
+        </svg>
+    @elseif ($config['icon'] === 'inactive')
+        <svg class="size-2.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-circle-alert-icon lucide-circle-alert">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" x2="12" y1="8" y2="12" />
+            <line x1="12" x2="12.01" y1="16" y2="16" />
+        </svg>
+    @else
+        <svg class="size-2.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-calendar-x-icon lucide-calendar-x">
+            <path d="M8 2v4" />
+            <path d="M16 2v4" />
+            <rect width="18" height="18" x="3" y="4" rx="2" />
+            <path d="M3 10h18" />
+            <path d="m14 14-4 4" />
+            <path d="m10 14 4 4" />
         </svg>
     @endif
 

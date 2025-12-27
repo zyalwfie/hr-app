@@ -154,7 +154,7 @@
                         <div class="relative">
                             <input name="due_date" value="{{ old('due_date', $task->due_date->format('l, d F Y')) }}"
                                 id="due_date" type="text"
-                                class="@error('due_date') border-red-500 @enderror shadow-2xs block w-full rounded-lg border-gray-200 px-3 py-1.5 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:py-2 sm:text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                class="@error('due_date') date border-red-500 @enderror shadow-2xs block w-full rounded-lg border-gray-200 px-3 py-1.5 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:py-2 sm:text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                 placeholder="Pick due date">
                             <div class="absolute right-3 top-1/2 -translate-y-1/2">
                                 <svg class="size-4 text-neutral-500" xmlns="http://www.w3.org/2000/svg"
