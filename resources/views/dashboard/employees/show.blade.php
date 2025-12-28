@@ -46,9 +46,9 @@
                                     {{ $employee->fullname }}
                                 </h3>
                             </div>
-                            @session ('success')
+                            @session('success')
                                 <div id="dismiss-alert"
-                                    class="hs-removing:translate-x-5 hs-removing:opacity-0 bg-white text-sm text-gray-600 rounded-lg p-4 border border-gray-200 order-1"
+                                    class="hs-removing:translate-x-5 hs-removing:opacity-0 order-1 rounded-lg border border-gray-200 bg-white p-4 text-sm text-gray-600"
                                     role="alert" tabindex="-1" aria-labelledby="hs-dismiss-button-label">
                                     <div class="flex">
                                         <div class="shrink-0">
@@ -312,7 +312,7 @@
                         </div>
 
                         <!-- Footer -->
-                        <div class="mt-4 border-t border-gray-200 pt-4 xl:mt-auto dark:border-neutral-700">
+                        <div class="border-t border-gray-200 pt-4 xl:mt-auto dark:border-neutral-700">
                             <div class="flex flex-wrap items-center justify-between gap-1.5">
                                 <div>
                                     <a href="{{ route('employees.edit', $employee->id) }}"
@@ -328,21 +328,40 @@
                                 </div>
                                 <!-- End Col -->
 
-                                <a class="flex items-center justify-center gap-x-1.5 rounded-lg border border-transparent px-2.5 py-1.5 text-[13px] text-gray-500 hover:bg-gray-100 hover:text-gray-800 focus:bg-gray-100 focus:text-gray-800 focus:outline-none dark:text-neutral-200 dark:hover:bg-neutral-700 dark:hover:text-neutral-200 dark:focus:border-indigo-500/20 dark:focus:bg-neutral-700 dark:focus:text-neutral-200"
-                                    href="#">
-                                    <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24"
-                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M12 16v5" />
-                                        <path d="M16 14v7" />
-                                        <path d="M20 10v11" />
-                                        <path
-                                            d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15" />
-                                        <path d="M4 18v3" />
-                                        <path d="M8 14v7" />
-                                    </svg>
-                                    Charts
-                                </a>
+                                <div class="flex items-center gap-2">
+                                    <a class="flex items-center justify-center gap-x-1.5 rounded-lg border border-transparent px-2.5 py-1.5 text-[13px] text-gray-500 hover:bg-gray-100 hover:text-gray-800 focus:bg-gray-100 focus:text-gray-800 focus:outline-none dark:text-neutral-200 dark:hover:bg-neutral-700 dark:hover:text-neutral-200 dark:focus:border-indigo-500/20 dark:focus:bg-neutral-700 dark:focus:text-neutral-200"
+                                        href="#">
+                                        <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path d="M12 16v5" />
+                                            <path d="M16 14v7" />
+                                            <path d="M20 10v11" />
+                                            <path
+                                                d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15" />
+                                            <path d="M4 18v3" />
+                                            <path d="M8 14v7" />
+                                        </svg>
+                                        Charts
+                                    </a>
+                                    <form action="{{ route('employees.destroy', $employee->id) }}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit"
+                                            class="shadow-2xs focus:outline-hidden inline-flex cursor-pointer items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-2.5 py-1.5 text-sm font-medium text-red-500 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+                                            <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="lucide lucide-trash-icon lucide-trash">
+                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+                                                <path d="M3 6h18" />
+                                                <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                            </svg>
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                                 <!-- End Col -->
                             </div>
                         </div>

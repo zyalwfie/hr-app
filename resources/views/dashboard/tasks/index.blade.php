@@ -573,8 +573,6 @@
                 el.closest('.toastify').querySelector('.toast-close').click();
             }
 
-            console.log(window.__restorableTaskId);
-
             window.addEventListener('load', () => {
                 if (!window.__toastSuccessMessage) return;
 

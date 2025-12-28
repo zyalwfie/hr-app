@@ -1,4 +1,34 @@
 <x-dashboard-layout>
+    @push('head_css')
+        <style>
+            .toast-progress {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                height: 3px;
+                width: 100%;
+                background: linear-gradient(to right, #3b82f6, #60a5fa);
+                animation: toast-progress linear forwards;
+            }
+
+            .toastify.toast-with-progress .toast-progress {
+                animation-duration: 5s;
+            }
+
+            @keyframes toast-progress {
+                from {
+                    transform: scaleX(1);
+                    transform-origin: left;
+                }
+
+                to {
+                    transform: scaleX(0);
+                    transform-origin: left;
+                }
+            }
+        </style>
+    @endpush
+
     <x-slot name="title">
         Dashboard | Employees
     </x-slot>
@@ -184,10 +214,10 @@
             </script>
         @endpush
     @endif
-    @if (session('restoreable_task_id'))
+    @if (session('restoreable_id'))
         @push('foot_js')
             <script>
-                window.__restorableTaskId = @json(session('restoreable_task_id'));
+                window.__restorableId = @json(session('restoreable_id'));
             </script>
         @endpush
     @endif
@@ -196,8 +226,6 @@
             function tostifyCustomClose(el) {
                 el.closest('.toastify').querySelector('.toast-close').click();
             }
-
-            console.log(window.__restorableTaskId);
 
             window.addEventListener('load', () => {
                 if (!window.__toastSuccessMessage) return;
@@ -221,12 +249,12 @@
                             </div>
                             <div class="ms-2 me-5">
                                 <h3 id="hs-toast-restore-label" class="text-sm font-medium text-gray-800 dark:text-white">
-                                    Successfully deleted task data
+                                    Successfully deleted employee data
                                 </h3>
                                 <div class="mt-1 text-sm text-gray-600 dark:text-neutral-400">
                                     You can restore the data by click undo below.
                                 </div>
-                                <form action="/dashboard/tasks/${window.__restorableTaskId}/restore" method="post" class="mt-3">
+                                <form action="/dashboard/employees/${window.__restorableId}/restore" method="post" class="mt-3">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="_method" value="PATCH">
                                     <button type="submit"
@@ -254,11 +282,11 @@
                 `;
 
                 Toastify({
-                    text: window.__restorableTaskId ? toastMarkup1 : toastMarkup2,
+                    text: window.__restorableId ? toastMarkup1 : toastMarkup2,
                     className: `
-                    hs-toastify-on:opacity-100 opacity-0 fixed -top-10 end-10 z-90 transition-all duration-300 min-w-max w-72 bg-white text-sm text-gray-700 border border-gray-200 rounded-xl shadow-lg [&>.toast-close]:hidden dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 ${window.__restorableTaskId ? 'toast-with-progress' : ''}
+                    hs-toastify-on:opacity-100 opacity-0 fixed -top-10 end-10 z-90 transition-all duration-300 min-w-max w-72 bg-white text-sm text-gray-700 border border-gray-200 rounded-xl shadow-lg [&>.toast-close]:hidden dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 ${window.__restorableId ? 'toast-with-progress' : ''}
                     `,
-                    duration: window.__restorableTaskId ? 5000 : 3000,
+                    duration: window.__restorableId ? 5000 : 3000,
                     close: true,
                     escapeMarkup: false
                 }).showToast();

@@ -48,7 +48,7 @@ class EmployeeController extends Controller
             'hire_date'      => 'required|date',
             'department_id'  => 'required|exists:departments,id',
             'role_id'        => 'required|exists:roles,id',
-            'status'         => 'required|string|in:active,inactive',
+            'status'         => 'required|string|in:active,inactive,other',
             'salary'         => 'required|numeric',
         ]);
 
@@ -120,7 +120,7 @@ class EmployeeController extends Controller
             'hire_date' => 'required|date',
             'department_id' => 'required|exists:departments,id',
             'role_id' => 'required|exists:roles,id',
-            'status' => 'required|string|in:active,inactive',
+            'status' => 'required|string|in:active,inactive,other',
             'salary' => 'required|numeric',
         ]);
 
@@ -144,8 +144,20 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Employee $employee)
     {
-        //
+        $employee->delete();
+
+        return redirect()->route('employees.index')->with('success', 'Employee deleted successfully.')->with('restoreable_id', $employee->id);
+    }
+
+    /**
+     * Restore deleted data from storage
+     */
+    public function restore(Employee $employee)
+    {
+        $employee->restore();
+
+        return redirect()->route('employees.index')->with('success', 'Employee successfully to restore.');
     }
 }
