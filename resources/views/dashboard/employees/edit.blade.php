@@ -1,11 +1,7 @@
 <x-dashboard-layout>
-    @push('scripts')
-        @vite(['resources/js/task-form.js'])
-    @endpush
-
-    <x-slot:title>
-        Dashboard | Employee - Create
-    </x-slot:title>
+    <x-slot name="title">
+        Dashboard | Edit - Update {{ $employee->fullname }}
+    </x-slot>
 
     <!-- Card Section -->
     <div>
@@ -13,15 +9,17 @@
         <div class="shadow-xs rounded-xl border border-gray-200 bg-white p-4 sm:p-7 dark:bg-neutral-800">
             <div class="mb-8">
                 <h2 class="text-xl font-bold text-gray-800 dark:text-neutral-200">
-                    Create new employee
+                    Update employee data
                 </h2>
                 <p class="text-sm text-gray-600 dark:text-neutral-400">
-                    Make an employee's new data with form below.
+                    Make a changes for employee profile.
                 </p>
             </div>
 
-            <form action="{{ route('employees.store') }}" method="post">
+            <form action="{{ route('employees.update', $employee->id) }}" method="post">
                 @csrf
+                @method('put')
+                <input type="hidden" name="id" value="{{ $employee->id }}">
                 <!-- Grid -->
                 <div class="grid gap-2 sm:grid-cols-12 sm:gap-6">
                     <div class="sm:col-span-3">
@@ -69,7 +67,8 @@
                     <div class="sm:col-span-9">
                         <div class="sm:flex">
                             <div class="relative w-full">
-                                <input id="fullname" type="text" name="first_name" value="{{ old('first_name') }}"
+                                <input id="fullname" type="text" name="first_name"
+                                    value="{{ old('first_name', $firstName) }}"
                                     class="shadow-2xs @error('first_name') pe-11 border-red-500 @enderror relative -me-px -mt-px block w-full rounded-t-lg border-gray-200 px-3 py-1.5 checked:border-blue-500 focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:ms-0 sm:mt-0 sm:rounded-s-lg sm:rounded-se-none sm:py-2 sm:text-sm dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                     placeholder="John" value="{{ old('first_name') }}">
                                 @error('first_name')
@@ -87,7 +86,7 @@
                             </div>
                             <input type="text" name="last_name"
                                 class="shadow-2xs relative -ms-px -mt-px block w-full rounded-b-lg border-gray-200 px-3 py-1.5 pe-11 checked:border-blue-500 focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:mt-0 sm:rounded-e-lg sm:rounded-es-none sm:py-2 sm:text-sm dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                placeholder="Doe" value="{{ old('last_name') }}">
+                                placeholder="Doe" value="{{ old('last_name', $lastName) }}">
                         </div>
                         @error('first_name')
                             <p class="mt-2 text-sm text-red-600">{{ $message }}
@@ -105,9 +104,9 @@
 
                     <div class="sm:col-span-9">
                         <div class="relative">
-                            <input id="email" type="email" name="email" value="{{ old('email') }}"
+                            <input id="email" type="email" name="email" value="{{ old('email', $employee->email) }}"
                                 class="shadow-2xs @error('email') border-red-500 @enderror block w-full rounded-lg border-gray-200 px-3 py-1.5 pe-11 checked:border-blue-500 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:py-2 sm:text-sm dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                placeholder="johndoe@example.com">
+                                placeholder="johndoe@example.com" value="{{ old('email', $employee->email) }}">
                             @error('email')
                                 <div class="pointer-events-none absolute inset-y-0 end-0 flex items-center pe-3">
                                     <svg class="size-4 shrink-0 text-red-500" xmlns="http://www.w3.org/2000/svg"
@@ -142,9 +141,23 @@
 
                     <div class="sm:col-span-9">
                         <div class="sm:flex">
-                            <input id="phone_number" type="text" name="phone_number"
-                                class="@error('phone_number') pe-11 border-red-500 @enderror shadow-2xs relative -ms-px -mt-px block w-full border-gray-200 px-3 py-1.5 pe-11 first:rounded-t-lg last:rounded-b-lg checked:border-blue-500 focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:mt-0 sm:py-2 sm:text-sm sm:first:ms-0 sm:first:rounded-s-lg sm:first:rounded-se-none sm:last:rounded-e-lg sm:last:rounded-es-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                placeholder="+x(xxx)xxx-xx-xx" value="{{ old('phone_number') }}">
+                            <div class="relative w-full">
+                                <input id="phone_number" type="text" name="phone_number"
+                                    class="@error('phone_number') border-red-500 pe-11 @enderror shadow-2xs relative -ms-px -mt-px block w-full border-gray-200 px-3 py-1.5 pe-11 rounded-t-lg md:rounded-s-lg md:rounded-tr-none checked:border-blue-500 focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:mt-0 sm:py-2 sm:text-sm sm:first:ms-0 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                    placeholder="+x(xxx)xxx-xx-xx" value="{{ old('phone_number', $employee->phone_number) }}">
+                                @error('phone_number')
+                                    <div class="pointer-events-none absolute inset-y-0 end-0 flex items-center pe-3">
+                                        <svg class="size-4 shrink-0 text-red-500" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" x2="12" y1="8" y2="12"></line>
+                                            <line x1="12" x2="12.01" y1="16" y2="16"></line>
+                                        </svg>
+                                    </div>
+                                @enderror
+                            </div>
                             <select
                                 class="shadow-2xs relative -ms-px -mt-px block w-full border-gray-200 px-3 py-1.5 pe-9 first:rounded-t-lg last:rounded-b-lg checked:border-blue-500 focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:mt-0 sm:w-auto sm:py-2 sm:text-sm sm:first:ms-0 sm:first:rounded-s-lg sm:first:rounded-se-none sm:last:rounded-e-lg sm:last:rounded-es-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                 name="phone_number_type">
@@ -159,7 +172,8 @@
                             </select>
                         </div>
                         @error('phone_number')
-                            <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                            <p class="mt-2 text-sm text-red-600" id="hs-validation-name-error-helper">{{ $message }}
+                            </p>
                         @enderror
                     </div>
                     <!-- End Col -->
@@ -174,7 +188,7 @@
 
                     <div class="sm:col-span-9">
                         <div class="relative">
-                            <input id="birth_date" type="text" name="birth_date" value="{{ old('birth_date') }}"
+                            <input id="birth_date" type="text" name="birth_date" value="{{ old('birth_date', $employee->birth_date->format('l, d F Y')) }}"
                                 class="date shadow-2xs @error('birth_date') border-red-500 @enderror pe-13 block w-full rounded-lg border-gray-200 px-3 py-1.5 checked:border-blue-500 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:py-2 sm:text-sm dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                 placeholder="Define employee birth date">
                             @error('birth_date')
@@ -221,7 +235,7 @@
 
                     <div class="sm:col-span-9">
                         <div class="relative">
-                            <input id="hire_date" type="text" name="hire_date" value="{{ old('hire_date') }}"
+                            <input id="hire_date" type="text" name="hire_date" value="{{ old('hire_date', $employee->hire_date->format('l, d F Y')) }}"
                                 class="date @error('hire_date') border-red-500 @enderror shadow-2xs block w-full rounded-lg border-gray-200 px-3 py-1.5 pe-11 checked:border-blue-500 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:py-2 sm:text-sm dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                 placeholder="Define employee hire date">
                             @error('hire_date')
@@ -274,7 +288,7 @@
                                 <option selected value="">Select employee department</option>
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}"
-                                        {{ old('department_id') == $department->id ? 'selected' : '' }}>
+                                        {{ old('department_id', $employee->department_id) == $department->id ? 'selected' : '' }}>
                                         {{ $department->name }}</option>
                                 @endforeach
                             </select>
@@ -320,7 +334,7 @@
                                 class="shadow-2xs relative -ms-px -mt-px flex w-full border border-gray-200 px-3 py-2 text-sm first:rounded-t-lg last:rounded-b-lg checked:border-blue-500 focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:mt-0 sm:first:ms-0 sm:first:rounded-s-lg sm:first:rounded-se-none sm:last:rounded-e-lg sm:last:rounded-es-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                                 <input type="radio" name="status" value="inactive"
                                     class="mt-0.5 shrink-0 rounded-full border-gray-300 text-blue-600 checked:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-500 dark:bg-neutral-800 dark:checked:border-blue-500 dark:checked:bg-blue-500 dark:focus:ring-offset-gray-800"
-                                    id="inactive" {{ old('status') == 'inactive' ? 'checked' : '' }}>
+                                    id="inactive" {{ old('status', $employee->status) == 'inactive' ? 'checked' : '' }}>
                                 <span class="ms-3 text-gray-500 sm:text-sm dark:text-neutral-400">Inactive</span>
                             </label>
 
@@ -349,7 +363,7 @@
                                 <option selected value="">Select employee role</option>
                                 @foreach ($roles as $role)
                                     <option value="{{ $role->id }}"
-                                        {{ old('role_id') == $role->id ? 'selected' : '' }}>{{ $role->title }}
+                                        {{ old('role_id', $employee->role_id) == $role->id ? 'selected' : '' }}>{{ $role->title }}
                                     </option>
                                 @endforeach
                             </select>
@@ -388,7 +402,7 @@
                                 <span class="text-sm text-gray-500 dark:text-neutral-400">Rp</span>
                             </div>
                             <div class="relative w-full">
-                                <input type="text" id="salary" name="salary" value="{{ old('salary') }}"
+                                <input type="text" id="salary" name="salary" value="{{ old('salary', $employee->salary) }}"
                                     class="@error('salary') border-red-500 @enderror block w-full rounded-lg rounded-s-none border-gray-200 px-4 py-2 focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                     placeholder="xxx,xxx.xx">
                                 @error('salary')
@@ -421,24 +435,21 @@
 
                     <div class="sm:col-span-9">
                         <textarea id="address" name="address"
-                            class="@error('address') pe-11 border-red-500 @enderror block w-full rounded-lg border-gray-200 px-3 py-1.5 checked:border-blue-500 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:py-2 sm:text-sm dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                            rows="6" placeholder="Type employee address...">{{ old('address') }}</textarea>
-                        @error('address')
-                            <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
-                        @enderror
+                            class="block w-full rounded-lg border-gray-200 px-3 py-1.5 checked:border-blue-500 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:py-2 sm:text-sm dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                            rows="6" placeholder="Type employee address...">{{ old('address', $employee->address) }}</textarea>
                     </div>
                     <!-- End Col -->
                 </div>
                 <!-- End Grid -->
 
                 <div class="mt-5 flex justify-end gap-x-2">
-                    <a href="{{ route('employees.index') }}"
+                    <a href="{{ route('employees.show', $employee->id) }}"
                         class="shadow-2xs focus:outline-hidden inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-transparent dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
                         Cancel
                     </a>
                     <button type="submit"
                         class="focus:outline-hidden inline-flex cursor-pointer items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 disabled:pointer-events-none disabled:opacity-50">
-                        Create employee
+                        Save changes
                     </button>
                 </div>
             </form>

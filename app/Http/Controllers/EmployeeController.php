@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\Employee;
 use App\Models\Department;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -37,35 +39,36 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'first_name' => 'required',
-            'email' => 'required|email',
-            'phone_number' => 'integer',
-            'address' => 'required',
-            'birth_date' => 'required',
-            'hire_date' => 'required',
-            'department_id' => 'required',
-            'role_id' => 'required',
-            'status' => 'required',
-            'salary' => 'required',
+            'first_name'     => 'required|string',
+            'last_name'      => 'nullable|string',
+            'email'          => 'required|string|email',
+            'phone_number'   => ['required', 'string', 'regex:/^(?:\+62|62|0)8[1-9][0-9]{6,10}$/'],
+            'address'        => 'required|string',
+            'birth_date'     => 'required|date',
+            'hire_date'      => 'required|date',
+            'department_id'  => 'required|exists:departments,id',
+            'role_id'        => 'required|exists:roles,id',
+            'status'         => 'required|string|in:active,inactive',
+            'salary'         => 'required|numeric',
         ]);
 
-        if ($request->post('last_name')) {
-            $validated['fullname'] = $validated['first_name'] . ' ' . $request->post('last_name');
-        } else {
-            $validated['fullname'] = $validated['first_name'];
-        }
+        $validated['fullname'] = collect([
+            $validated['first_name'],
+            $validated['last_name'] ?? null,
+        ])->filter()->implode(' ');
 
-        $birthDate = $validated['birth_date'];
-        $formattedBirthDate = Carbon::parse($birthDate)->format('Y-m-d');
-        $validated['birth_date'] = $formattedBirthDate;
-        $hireDate = $validated['hire_date'];
-        $formattedHireDate = Carbon::parse($hireDate)->format('Y-m-d');
-        $validated['hire_date'] = $formattedHireDate;
+        $validated['birth_date'] = Carbon::parse($validated['birth_date'])->toDateString();
+        $validated['hire_date']  = Carbon::parse($validated['hire_date'])->toDateString();
+
+        Arr::forget($validated, ['first_name', 'last_name']);
 
         Employee::create($validated);
 
-        return redirect()->route('employees.index')->with('success', 'Employee created successfully.');
+        return redirect()
+            ->route('employees.index')
+            ->with('success', 'Employee created successfully.');
     }
+
 
     /**
      * Display the specified resource.
@@ -78,17 +81,64 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Employee $employee)
     {
-        //
+        $departments = Department::orderBy('name')->get();
+        $roles = Role::orderBy('title')->get();
+
+        $parts = Str::of($employee->fullname)
+            ->trim()
+            ->explode(' ')
+            ->filter();
+
+        $firstName = $parts->first();
+        $lastName  = $parts->skip(1)->implode(' ');
+
+        return view('dashboard.employees.edit', compact(
+            'employee',
+            'departments',
+            'roles',
+            'firstName',
+            'lastName'
+        ));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Employee $employee)
     {
-        //
+        $validated = $request->validate([
+            'id' => 'required',
+            'first_name' => 'required|string',
+            'last_name' => 'nullable|string',
+            'email' => 'required|string|email',
+            'phone_number' => ['required', 'string', 'regex:/^(?:\+62|62|0)8[1-9][0-9]{6,10}$/'],
+            'address' => 'required|string',
+            'birth_date' => 'required|date',
+            'hire_date' => 'required|date',
+            'department_id' => 'required|exists:departments,id',
+            'role_id' => 'required|exists:roles,id',
+            'status' => 'required|string|in:active,inactive',
+            'salary' => 'required|numeric',
+        ]);
+
+        $validated['fullname'] = collect([
+            $validated['first_name'],
+            $validated['last_name'] ?? null,
+        ])->filter()->implode(' ');
+
+        $validated['birth_date'] = Carbon::parse($validated['birth_date'])->toDateString();
+        $validated['hire_date']  = Carbon::parse($validated['hire_date'])->toDateString();
+
+        Arr::forget($validated, ['first_name', 'last_name']);
+
+        $employee->update($validated);
+
+        return redirect()
+            ->route('employees.index')
+            ->with('success', 'Employee updated successfully.');
     }
 
     /**

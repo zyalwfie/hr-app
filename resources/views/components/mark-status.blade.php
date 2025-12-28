@@ -26,7 +26,7 @@
         ],
         'inactive' => [
             'label' => 'Inactive',
-            'class' => 'bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-200',
+            'class' => 'bg-stone-100 text-stone-800 dark:bg-stone-900 dark:text-stone-200',
             'icon' => 'inactive',
         ],
     ];
