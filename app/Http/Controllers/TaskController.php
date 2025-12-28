@@ -14,7 +14,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::availableEmployee()->get();
 
         return view('dashboard.tasks.index', compact('tasks'));
     }
@@ -41,10 +41,6 @@ class TaskController extends Controller
             'due_date' => 'required|date',
             'status' => 'required'
         ]);
-
-        $date = $validated['due_date'];
-        $formattedDate = Carbon::parse($date)->format('Y-m-d');
-        $validated['due_date'] = $formattedDate;
 
         Task::create($validated);
 
@@ -81,10 +77,6 @@ class TaskController extends Controller
             'due_date' => 'required|date',
             'status' => 'required'
         ]);
-
-        $date = $validated['due_date'];
-        $formattedDate = Carbon::parse($date)->format('Y-m-d');
-        $validated['due_date'] = $formattedDate;
 
         $task->update($validated);
 

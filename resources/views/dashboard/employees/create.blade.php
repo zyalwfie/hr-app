@@ -1,6 +1,6 @@
 <x-dashboard-layout>
     @push('scripts')
-        @vite(['resources/js/task-form.js'])
+        @vite(['resources/js/date-picker.js'])
     @endpush
 
     <x-slot:title>

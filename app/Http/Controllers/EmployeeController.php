@@ -57,9 +57,6 @@ class EmployeeController extends Controller
             $validated['last_name'] ?? null,
         ])->filter()->implode(' ');
 
-        $validated['birth_date'] = Carbon::parse($validated['birth_date'])->toDateString();
-        $validated['hire_date']  = Carbon::parse($validated['hire_date'])->toDateString();
-
         Arr::forget($validated, ['first_name', 'last_name']);
 
         Employee::create($validated);
@@ -128,15 +125,12 @@ class EmployeeController extends Controller
             $validated['last_name'] ?? null,
         ])->filter()->implode(' ');
 
-        $validated['birth_date'] = Carbon::parse($validated['birth_date'])->toDateString();
-        $validated['hire_date']  = Carbon::parse($validated['hire_date'])->toDateString();
-
         Arr::forget($validated, ['first_name', 'last_name']);
 
         $employee->update($validated);
 
         return redirect()
-            ->route('employees.index')
+            ->route('employees.show', $employee->id)
             ->with('success', 'Employee updated successfully.');
     }
 

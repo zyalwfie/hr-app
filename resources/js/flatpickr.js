@@ -2,7 +2,7 @@ import flatpickr from "flatpickr";
 
 export function initFlatpickr(target, options = {}) {
     const defaultOptions = {
-        dateFormat: "l, d F Y",
+        dateFormat: "y-m-d",
         allowInput: false,
     };
 

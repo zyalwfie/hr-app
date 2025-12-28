@@ -1,4 +1,8 @@
 <x-dashboard-layout>
+    @push('scripts')
+        @vite('resources/js/date-picker.js')
+    @endpush
+
     <x-slot name="title">
         Dashboard | Employee - Edit, {{ $employee->fullname }}
     </x-slot>

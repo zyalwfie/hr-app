@@ -38,7 +38,7 @@
                 <div class="grow">
                     <div class="flex h-full flex-col">
                         <p class="text-sm text-gray-500 dark:text-neutral-500">
-                            Post title:
+                            Task title:
                         </p>
                         <h3 class="font-medium text-gray-800 dark:text-neutral-200">
                             {{ $task->title }}
