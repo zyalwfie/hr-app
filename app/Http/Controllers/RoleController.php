@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -11,7 +12,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $roles = Role::all();
+
+        return view('dashboard.roles.index', compact('roles'));
     }
 
     /**
@@ -19,7 +22,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.roles.create');
     }
 
     /**
@@ -27,7 +30,14 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string',
+            'description' => 'required|string'
+        ]);
+
+        Role::create($validated);
+
+        return redirect()->route('roles.index')->with('success', 'Role created successfully.');
     }
 
     /**
@@ -41,24 +51,44 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Role $role)
     {
-        //
+        return view('dashboard.roles.edit', compact('role'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Role $role)
     {
-        //
+        $validated = $request->validate([
+            'id' => 'required',
+            'title' => 'required|string',
+            'description' => 'required|string'
+        ]);
+
+        $role->update($validated);
+
+        return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Role $role)
     {
-        //
+        $role->delete();
+
+        return redirect()->route('roles.index')->with('success', 'Role deleted successfully.')->with('restoreable_id', $role->id);
+    }
+
+    /**
+     * Restore deleted data from storage
+     */
+    public function restore(Role $role)
+    {
+        $role->restore();
+
+        return redirect()->route('roles.index')->with('success', 'Role successfully to restore.');
     }
 }

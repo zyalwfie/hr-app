@@ -96,6 +96,9 @@ class DepartmentController extends Controller
         return redirect()->route('departments.index')->with('success', 'Department deleted successfully.')->with('restoreable_id', $department->id);
     }
 
+    /**
+     * Restore deleted data from storage
+     */
     public function restore(Department $department)
     {
         $department->restore();

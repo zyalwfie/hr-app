@@ -1,6 +1,6 @@
 <x-dashboard-layout>
     <x-slot:title>
-        Dashboard | Create
+        Dashboard | Departments - Create
     </x-slot:title>
 
     <!-- Card Section -->

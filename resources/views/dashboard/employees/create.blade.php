@@ -4,7 +4,7 @@
     @endpush
 
     <x-slot:title>
-        Dashboard | Employee - Create
+        Dashboard | Employees - Create
     </x-slot:title>
 
     <!-- Card Section -->

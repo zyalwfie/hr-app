@@ -32,6 +32,8 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () 
     Route::patch('/departments/{department}/restore', [DepartmentController::class, 'restore'])->withTrashed()->name('departments.restore');
 
     Route::resource('/roles', RoleController::class);
+    Route::patch('/roles/{role}/restore', [RoleController::class, 'restore'])->withTrashed()->name('roles.restore');
+
     Route::resource('/presences', PresenceController::class);
     Route::resource('/payrolls', PayrollController::class);
     Route::resource('/leave-requests', LeaveRequestController::class);

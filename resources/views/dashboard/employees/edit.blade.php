@@ -1,6 +1,6 @@
 <x-dashboard-layout>
     <x-slot name="title">
-        Dashboard | Edit - Update {{ $employee->fullname }}
+        Dashboard | Employee - Edit, {{ $employee->fullname }}
     </x-slot>
 
     <!-- Card Section -->
