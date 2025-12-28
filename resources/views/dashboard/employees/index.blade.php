@@ -124,7 +124,7 @@
                                         <td class="whitespace-nowrap">
                                             <div class="px-6 py-1.5">
                                                 <a class="focus:outline-hidden inline-flex items-center gap-x-1 text-sm font-medium text-blue-600 decoration-2 hover:underline focus:underline dark:text-blue-500"
-                                                    href="{{ route('employees.edit', $employee->id) }}">
+                                                    href="{{ route('employees.show', $employee->id) }}">
                                                     View
                                                 </a>
                                             </div>
