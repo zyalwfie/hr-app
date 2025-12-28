@@ -69,7 +69,6 @@ class EmployeeController extends Controller
             ->with('success', 'Employee created successfully.');
     }
 
-
     /**
      * Display the specified resource.
      */
