@@ -30,7 +30,7 @@
     @endpush
 
     <x-slot name="title">
-        Dashboard | Presences
+        Dashboard | Leave Requests
     </x-slot>
 
     <!-- Table Section -->
@@ -47,31 +47,31 @@
                             class="grid gap-3 border-b border-gray-200 px-6 py-4 md:flex md:items-center md:justify-between dark:border-neutral-700">
                             <div>
                                 <h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-200">
-                                    Presences
+                                    Leave Requests
                                 </h2>
                                 <p class="text-sm text-gray-600 dark:text-neutral-400">
-                                    Add employee presences, edit and more.
+                                    Add employee leave requests, edit and more.
                                 </p>
                             </div>
 
                             <div>
                                 <div class="inline-flex gap-x-2">
                                     <a class="focus:outline-hidden inline-flex items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 disabled:pointer-events-none disabled:opacity-50"
-                                        href="{{ route('presences.create') }}">
+                                        href="{{ route('leave-requests.create') }}">
                                         <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24"
                                             height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                             <path d="M5 12h14" />
                                             <path d="M12 5v14" />
                                         </svg>
-                                        Add presence
+                                        Add leave request
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <!-- End Header -->
 
-                        @if ($presences->isNotEmpty())
+                        @if ($leave_requests->isNotEmpty())
                             <!-- Table -->
                             <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
                                 <thead class="bg-gray-50 dark:bg-neutral-800">
@@ -89,7 +89,7 @@
                                             <div class="flex items-center gap-x-2">
                                                 <span
                                                     class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
-                                                    Check In
+                                                    Leave Type
                                                 </span>
                                             </div>
                                         </th>
@@ -98,7 +98,16 @@
                                             <div class="flex items-center gap-x-2">
                                                 <span
                                                     class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
-                                                    Check Out
+                                                    Start Date
+                                                </span>
+                                            </div>
+                                        </th>
+
+                                        <th scope="col" class="px-6 py-3 text-start">
+                                            <div class="flex items-center gap-x-2">
+                                                <span
+                                                    class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
+                                                    End Date
                                                 </span>
                                             </div>
                                         </th>
@@ -117,7 +126,7 @@
                                 </thead>
 
                                 <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-                                    @foreach ($presences as $presence)
+                                    @foreach ($leave_requests as $leave_request)
                                         <tr>
                                             <td class="whitespace-nowrap">
                                                 <div class="py-3 pe-6 ps-6">
@@ -126,9 +135,9 @@
                                                             src="https://placehold.net/avatar-3.svg" alt="Avatar">
                                                         <div class="grow">
                                                             <span
-                                                                class="block text-sm font-semibold text-gray-800 dark:text-neutral-200">{{ $presence->employee->fullname }}</span>
+                                                                class="block text-sm font-semibold text-gray-800 dark:text-neutral-200">{{ $leave_request->employee->fullname }}</span>
                                                             <span
-                                                                class="block text-sm text-gray-500 dark:text-neutral-500">{{ $presence->employee->email }}</span>
+                                                                class="block text-sm text-gray-500 dark:text-neutral-500">{{ $leave_request->employee->email }}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -136,24 +145,30 @@
                                             <td class="whitespace-nowrap">
                                                 <div class="px-6 py-3">
                                                     <span
-                                                        class="text-sm text-gray-500 dark:text-neutral-500">{{ $presence->check_in->format('j F, Y | H.i \\W\\I\\T\\A') }}</span>
+                                                        class="text-sm text-gray-500 dark:text-neutral-500 capitalize">{{ $leave_request->leave_type }}</span>
                                                 </div>
                                             </td>
                                             <td class="whitespace-nowrap">
                                                 <div class="px-6 py-3">
                                                     <span
-                                                        class="text-sm text-gray-500 dark:text-neutral-500">{{ $presence->check_out->format('j F, Y | H.i \\W\\I\\T\\A') }}</span>
+                                                        class="text-sm text-gray-500 dark:text-neutral-500">{{ $leave_request->start_date->format('j F, Y') }}</span>
                                                 </div>
                                             </td>
                                             <td class="whitespace-nowrap">
                                                 <div class="px-6 py-3">
-                                                    <x-mark-status :status="$presence->status" />
+                                                    <span
+                                                        class="text-sm text-gray-500 dark:text-neutral-500">{{ $leave_request->end_date->format('j F, Y') }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="whitespace-nowrap">
+                                                <div class="px-6 py-3">
+                                                    <x-mark-status :status="$leave_request->status" />
                                                 </div>
                                             </td>
                                             <td class="whitespace-nowrap">
                                                 <div class="px-6 py-1.5">
                                                     <a class="focus:outline-hidden inline-flex items-center gap-x-1 text-sm font-medium text-blue-600 decoration-2 hover:underline focus:underline dark:text-blue-500"
-                                                        href="{{ route('presences.show', $presence->id) }}">
+                                                        href="{{ route('leave-requests.show', $leave_request->id) }}">
                                                         View
                                                     </a>
                                                 </div>
@@ -183,10 +198,10 @@
                                 </div>
 
                                 <h2 class="mt-5 font-semibold text-gray-800 dark:text-white">
-                                    No presence available
+                                    No leave request available
                                 </h2>
                                 <p class="mt-2 text-sm text-gray-600 dark:text-neutral-400">
-                                    Show information the employee presence.
+                                    Show information the employee leave request.
                                 </p>
 
                                 <div class="mt-5 flex flex-col gap-2 sm:flex-row">
@@ -198,7 +213,7 @@
                                             <path d="M5 12h14" />
                                             <path d="M12 5v14" />
                                         </svg>
-                                        Create new presence
+                                        Create new leave request
                                     </a>
                                 </div>
                             </div>
@@ -295,7 +310,7 @@
                                 <div class="mt-1 text-sm text-gray-600 dark:text-neutral-400">
                                     You can restore by click undo below.
                                 </div>
-                                <form action="/dashboard/presences/${window.__restorableId}/restore" method="post" class="mt-3">
+                                <form action="/dashboard/leave-requests/${window.__restorableId}/restore" method="post" class="mt-3">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="_method" value="PATCH">
                                     <button type="submit"

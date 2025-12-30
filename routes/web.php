@@ -41,6 +41,8 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () 
     Route::patch('/payrolls/{payroll}/restore', [PayrollController::class, 'restore'])->withTrashed()->name('payrolls.restore');
 
     Route::resource('/leave-requests', LeaveRequestController::class);
+    Route::patch('/leave-requests/{leave_request}/restore', [LeaveRequestController::class, 'restore'])->withTrashed()->name('leave-requests.restore');
+    Route::patch('/leave-requests/{leave_request}/approve', [LeaveRequestController::class, 'approve'])->name('leave-requests.approve');
 });
 
 Route::middleware('auth')->group(function () {
