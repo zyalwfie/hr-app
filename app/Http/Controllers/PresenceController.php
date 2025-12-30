@@ -99,6 +99,6 @@ class PresenceController extends Controller
     {
         $presence->restore();
 
-        return redirect()->route('presences.index')->with('success', 'presences successfully to restore.');
+        return redirect()->route('presences.index')->with('success', 'Presence restored successfully.');
     }
 }

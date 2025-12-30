@@ -12,7 +12,7 @@
             }
 
             .toastify.toast-with-progress .toast-progress {
-                animation-duration: 5s;
+                animation-duration: 5.25s;
             }
 
             @keyframes toast-progress {

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payroll;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 
 class PayrollController extends Controller
@@ -11,7 +13,9 @@ class PayrollController extends Controller
      */
     public function index()
     {
-        //
+        $payrolls = Payroll::availableEmployee()->get();
+
+        return view('dashboard.payrolls.index', compact('payrolls'));
     }
 
     /**
@@ -19,7 +23,9 @@ class PayrollController extends Controller
      */
     public function create()
     {
-        //
+        $employees = Employee::orderBy('fullname')->get();
+
+        return view('dashboard.payrolls.create', compact('employees'));
     }
 
     /**
@@ -27,7 +33,20 @@ class PayrollController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'employee_id' => 'required',
+            'salary' => 'required|numeric',
+            'bonuses' => 'nullable|numeric',
+            'deductions' => 'nullable|numeric',
+            'pay_date' => 'required'
+        ]);
+
+        $netSalary = $validated['salary'] + $validated['bonuses'] - $validated['deductions'];
+        $validated['net_salary'] = $netSalary;
+
+        Payroll::create($validated);
+
+        return redirect()->route('payrolls.index')->with('success', 'Payroll created successfully.');
     }
 
     /**
@@ -41,24 +60,53 @@ class PayrollController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Payroll $payroll)
     {
-        //
+        $employees = Employee::orderBy('fullname')->get();
+
+        return view('dashboard.payrolls.edit', compact('payroll', 'employees'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Payroll $payroll)
     {
-        //
+        $validated = $request->validate([
+            'employee_id' => 'required',
+            'salary' => 'required|numeric',
+            'bonuses' => 'nullable|numeric',
+            'deductions' => 'nullable|numeric',
+            'pay_date' => 'required'
+        ]);
+
+        $netSalary = $validated['salary'] + $validated['bonuses'] - $validated['deductions'];
+        $validated['net_salary'] = $netSalary;
+
+        $payroll->update($validated);
+
+        return redirect()->route('payrolls.index')->with('success', 'Payroll updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Payroll $payroll)
     {
-        //
+        $payroll->delete();
+
+        return redirect()->route('payrolls.index')
+            ->with('success', 'Payroll deleted successfully.')
+            ->with('restoreable_id', $payroll->id);
+    }
+
+    /**
+     * Restore deleted data from storage
+     */
+    public function restore(Payroll $payroll)
+    {
+        $payroll->restore();
+
+        return redirect()->route('payrolls.index')->with('success', 'Payroll restored successfully.');
     }
 }

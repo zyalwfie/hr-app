@@ -136,6 +136,6 @@ class TaskController extends Controller
     {
         $task->restore();
 
-        return redirect()->route('tasks.index')->with('success', 'Task successfully to restore.');
+        return redirect()->route('tasks.index')->with('success', 'Task restored successfully.');
     }
 }

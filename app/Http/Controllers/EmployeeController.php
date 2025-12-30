@@ -151,6 +151,6 @@ class EmployeeController extends Controller
     {
         $employee->restore();
 
-        return redirect()->route('employees.index')->with('success', 'Employee successfully to restore.');
+        return redirect()->route('employees.index')->with('success', 'Employee restored successfully.');
     }
 }

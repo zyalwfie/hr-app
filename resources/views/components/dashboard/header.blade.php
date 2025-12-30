@@ -42,10 +42,9 @@
                                 </svg>
                                 Profile
                             </a>
-                            <form action="{{ route('logout') }}" method="post">
+                            <form action="{{ route('logout') }}" method="post" class="w-full">
                                 @csrf
-                                <a class="focus:outline-hidden flex items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
-                                    href="{{ route('profile.edit') }}">
+                                <button type="submit" class="w-full focus:outline-hidden flex items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300 cursor-pointer">
                                     <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -55,7 +54,7 @@
                                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
                                     </svg>
                                     Logout
-                                </a>
+                                </button>
                             </form>
                         </div>
                     </div>

@@ -103,6 +103,6 @@ class DepartmentController extends Controller
     {
         $department->restore();
 
-        return redirect()->route('departments.index')->with('success', 'Department successfully to restore.');
+        return redirect()->route('departments.index')->with('success', 'Department restored successfully.');
     }
 }

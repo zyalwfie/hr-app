@@ -89,6 +89,6 @@ class RoleController extends Controller
     {
         $role->restore();
 
-        return redirect()->route('roles.index')->with('success', 'Role successfully to restore.');
+        return redirect()->route('roles.index')->with('success', 'Role restored successfully.');
     }
 }

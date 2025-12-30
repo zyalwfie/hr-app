@@ -38,6 +38,8 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () 
     Route::patch('/presences/{presence}/restore', [PresenceController::class, 'restore'])->withTrashed()->name('presences.restore');
 
     Route::resource('/payrolls', PayrollController::class);
+    Route::patch('/payrolls/{payroll}/restore', [PayrollController::class, 'restore'])->withTrashed()->name('payrolls.restore');
+
     Route::resource('/leave-requests', LeaveRequestController::class);
 });
 
