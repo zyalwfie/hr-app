@@ -8,7 +8,6 @@ use App\Models\Department;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 class EmployeeController extends Controller
 {

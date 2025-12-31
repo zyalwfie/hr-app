@@ -103,44 +103,48 @@
                     </div>
                     <!-- End Col -->
 
-                    <div class="sm:col-span-3">
-                        <label for="assigned_to"
-                            class="mt-2.5 inline-block text-sm font-medium text-gray-500 dark:text-neutral-500">
-                            Employee
-                        </label>
-                    </div>
+                    @if (session('role') === 'Manager')
+                        <div class="sm:col-span-3">
+                            <label for="assigned_to"
+                                class="mt-2.5 inline-block text-sm font-medium text-gray-500 dark:text-neutral-500">
+                                Employee
+                            </label>
+                        </div>
 
-                    <div class="sm:col-span-9">
-                        <div class="relative">
-                            <select name="assigned_to" id="assigned_to"
-                                class="@error('description') border-red-500 @enderror shadow-2xs block w-full rounded-lg border-gray-200 px-3 py-1.5 pe-9 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:py-2 sm:text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-                                <option selected value="">Select an employee</option>
-                                @foreach ($employees as $employee)
-                                    <option
-                                        {{ old('assigned_to', $task->assigned_to) == $employee->id ? 'selected' : '' }}
-                                        value="{{ $employee->id }}">
-                                        {{ $employee->fullname }}
-                                    </option>
-                                @endforeach
-                            </select>
+                        <div class="sm:col-span-9">
+                            <div class="relative">
+                                <select name="assigned_to" id="assigned_to"
+                                    class="@error('description') border-red-500 @enderror shadow-2xs block w-full rounded-lg border-gray-200 px-3 py-1.5 pe-9 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 sm:py-2 sm:text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                                    <option selected value="">Select an employee</option>
+                                    @foreach ($employees as $employee)
+                                        <option
+                                            {{ old('assigned_to', $task->assigned_to) == $employee->id ? 'selected' : '' }}
+                                            value="{{ $employee->id }}">
+                                            {{ $employee->fullname }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('assigned_to')
+                                    <div class="pointer-events-none absolute inset-y-0 end-10 flex items-center">
+                                        <svg class="size-4 shrink-0 text-red-500" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" x2="12" y1="8" y2="12"></line>
+                                            <line x1="12" x2="12.01" y1="16" y2="16"></line>
+                                        </svg>
+                                    </div>
+                                @enderror
+                            </div>
                             @error('assigned_to')
-                                <div class="pointer-events-none absolute inset-y-0 end-10 flex items-center">
-                                    <svg class="size-4 shrink-0 text-red-500" xmlns="http://www.w3.org/2000/svg"
-                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <line x1="12" x2="12" y1="8" y2="12"></line>
-                                        <line x1="12" x2="12.01" y1="16" y2="16"></line>
-                                    </svg>
-                                </div>
+                                <p class="mt-2 text-xs text-red-600">{{ $message }}
+                                </p>
                             @enderror
                         </div>
-                        @error('assigned_to')
-                            <p class="mt-2 text-xs text-red-600">{{ $message }}
-                            </p>
-                        @enderror
-                    </div>
+                    @else
+                    <input type="hidden" value="{{ session('employee_id') }}" name="assigned_to">
+                    @endif
 
                     <div class="sm:col-span-3">
                         <label for="due_date"

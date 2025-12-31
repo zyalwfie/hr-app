@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Task;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class TaskController extends Controller
 {
@@ -14,7 +14,13 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::availableEmployee()->get();
+        $tasks = Task::availableEmployee();
+
+        if (Session::get('role') !== 'Manager') {
+            $tasks = $tasks->where('assigned_to', Session::get('employee_id'));
+        }
+
+        $tasks = $tasks->get();
 
         return view('dashboard.tasks.index', compact('tasks'));
     }
@@ -24,7 +30,11 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $employees = Employee::orderBy('fullname')->get();
+        $employees = null;
+
+        if (Session::get('role') === 'Manager') {
+            $employees = Employee::orderBy('fullname')->get();
+        }
 
         return view('dashboard.tasks.create', compact('employees'));
     }

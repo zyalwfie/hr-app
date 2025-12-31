@@ -15,14 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::middleware(['auth', 'verified', 'role:Manager'])->prefix('dashboard')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->withoutMiddleware('role:Manager');
 
-    Route::resource('/tasks', TaskController::class);
+    Route::resource('/tasks', TaskController::class)->withoutMiddlewareFor(['index', 'show'], 'role:Manager');
     Route::patch('/tasks/{task}/pending', [TaskController::class, 'markAsPending'])->name('tasks.pending');
     Route::patch('/tasks/{task}/progress', [TaskController::class, 'markAsProgress'])->name('tasks.progress');
     Route::patch('/tasks/{task}/complete', [TaskController::class, 'markAsComplete'])->name('tasks.complete');
-    Route::patch('/tasks/{task}/restore', [TaskController::class, 'restore'])->withTrashed()->name('tasks.restore');
 
     Route::resource('/employees', EmployeeController::class);
     Route::patch('/employees/{employee}/restore', [EmployeeController::class, 'restore'])->withTrashed()->name('employees.restore');
@@ -34,15 +33,17 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () 
     Route::resource('/roles', RoleController::class);
     Route::patch('/roles/{role}/restore', [RoleController::class, 'restore'])->withTrashed()->name('roles.restore');
 
-    Route::resource('/presences', PresenceController::class);
+    Route::patch('/tasks/{task}/restore', [TaskController::class, 'restore'])->withTrashed()->name('tasks.restore');
+
+    Route::resource('/presences', PresenceController::class)->withoutMiddlewareFor(['index', 'create', 'store', 'show'], 'role:Manager');
     Route::patch('/presences/{presence}/restore', [PresenceController::class, 'restore'])->withTrashed()->name('presences.restore');
 
-    Route::resource('/payrolls', PayrollController::class);
+    Route::resource('/payrolls', PayrollController::class)->withoutMiddlewareFor('index', 'role:Manager');
     Route::patch('/payrolls/{payroll}/restore', [PayrollController::class, 'restore'])->withTrashed()->name('payrolls.restore');
 
     Route::resource('/leave-requests', LeaveRequestController::class);
     Route::patch('/leave-requests/{leave_request}/restore', [LeaveRequestController::class, 'restore'])->withTrashed()->name('leave-requests.restore');
-    Route::patch('/leave-requests/{leave_request}/approve', [LeaveRequestController::class, 'approve'])->name('leave-requests.approve');
+    Route::patch('/leave-requests/{leave_request}/approve', [LeaveRequestController::class, 'approve'])->middleware('role:Manager')->name('leave-requests.approve');
 });
 
 Route::middleware('auth')->group(function () {

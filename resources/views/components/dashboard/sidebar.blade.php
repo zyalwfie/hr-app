@@ -37,48 +37,50 @@
                         </svg>
                         Task
                     </x-side-nav-item>
-                    <x-side-nav-item :href="route('employees.index')" :currentPage="Route::is('employees*')">
-                        <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-users-round-icon lucide-users-round">
-                            <path d="M18 21a8 8 0 0 0-16 0" />
-                            <circle cx="10" cy="8" r="5" />
-                            <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" />
-                        </svg>
-                        Employee
-                    </x-side-nav-item>
-                    <x-side-nav-item :href="route('departments.index')" :currentPage="Route::is('departments*')">
-                        <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-building-icon lucide-building">
-                            <path d="M12 10h.01" />
-                            <path d="M12 14h.01" />
-                            <path d="M12 6h.01" />
-                            <path d="M16 10h.01" />
-                            <path d="M16 14h.01" />
-                            <path d="M16 6h.01" />
-                            <path d="M8 10h.01" />
-                            <path d="M8 14h.01" />
-                            <path d="M8 6h.01" />
-                            <path d="M9 22v-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3" />
-                            <rect x="4" y="2" width="16" height="20" rx="2" />
-                        </svg>
-                        Department
-                    </x-side-nav-item>
-                    <x-side-nav-item :href="route('roles.index')" :currentPage="Route::is('roles*')">
-                        <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-user-lock-icon lucide-user-lock">
-                            <circle cx="10" cy="7" r="4" />
-                            <path d="M10.3 15H7a4 4 0 0 0-4 4v2" />
-                            <path d="M15 15.5V14a2 2 0 0 1 4 0v1.5" />
-                            <rect width="8" height="5" x="13" y="16" rx=".899" />
-                        </svg>
-                        Role
-                    </x-side-nav-item>
+                    @if (session('role') === 'Manager')
+                        <x-side-nav-item :href="route('employees.index')" :currentPage="Route::is('employees*')">
+                            <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-users-round-icon lucide-users-round">
+                                <path d="M18 21a8 8 0 0 0-16 0" />
+                                <circle cx="10" cy="8" r="5" />
+                                <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" />
+                            </svg>
+                            Employee
+                        </x-side-nav-item>
+                        <x-side-nav-item :href="route('departments.index')" :currentPage="Route::is('departments*')">
+                            <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-building-icon lucide-building">
+                                <path d="M12 10h.01" />
+                                <path d="M12 14h.01" />
+                                <path d="M12 6h.01" />
+                                <path d="M16 10h.01" />
+                                <path d="M16 14h.01" />
+                                <path d="M16 6h.01" />
+                                <path d="M8 10h.01" />
+                                <path d="M8 14h.01" />
+                                <path d="M8 6h.01" />
+                                <path d="M9 22v-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3" />
+                                <rect x="4" y="2" width="16" height="20" rx="2" />
+                            </svg>
+                            Department
+                        </x-side-nav-item>
+                        <x-side-nav-item :href="route('roles.index')" :currentPage="Route::is('roles*')">
+                            <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-user-lock-icon lucide-user-lock">
+                                <circle cx="10" cy="7" r="4" />
+                                <path d="M10.3 15H7a4 4 0 0 0-4 4v2" />
+                                <path d="M15 15.5V14a2 2 0 0 1 4 0v1.5" />
+                                <rect width="8" height="5" x="13" y="16" rx=".899" />
+                            </svg>
+                            Role
+                        </x-side-nav-item>
+                    @endif
                     <x-side-nav-item :href="route('presences.index')" :currentPage="Route::is('presences*')">
                         <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

@@ -56,16 +56,37 @@
 
                             <div>
                                 <div class="inline-flex gap-x-2">
-                                    <a class="focus:outline-hidden inline-flex items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 disabled:pointer-events-none disabled:opacity-50"
-                                        href="{{ route('presences.create') }}">
-                                        <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24"
-                                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M5 12h14" />
-                                            <path d="M12 5v14" />
-                                        </svg>
-                                        Add presence
-                                    </a>
+                                    @if (session('role') === 'Manager')
+                                        <a class="focus:outline-hidden inline-flex items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 disabled:pointer-events-none disabled:opacity-50"
+                                            href="{{ route('presences.create') }}">
+                                            <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="M5 12h14" />
+                                                <path d="M12 5v14" />
+                                            </svg>
+                                            Add presence
+                                        </a>
+                                    @else
+                                        <a class="focus:outline-hidden inline-flex items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 disabled:pointer-events-none disabled:opacity-50"
+                                            href="{{ route('presences.create') }}">
+                                            <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                class="lucide lucide-calendar-plus-icon lucide-calendar-plus">
+                                                <path d="M16 19h6" />
+                                                <path d="M16 2v4" />
+                                                <path d="M19 16v6" />
+                                                <path
+                                                    d="M21 12.598V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8.5" />
+                                                <path d="M3 10h18" />
+                                                <path d="M8 2v4" />
+                                            </svg>
+                                            Submit attendance
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -142,7 +163,7 @@
                                             <td class="whitespace-nowrap">
                                                 <div class="px-6 py-3">
                                                     <span
-                                                        class="text-sm text-gray-500 dark:text-neutral-500">{{ $presence->check_out->format('j F, Y | H.i \\W\\I\\T\\A') }}</span>
+                                                        class="text-sm text-gray-500 dark:text-neutral-500">{{ $presence->check_out ? $presence->check_out->format('j F, Y | H.i \\W\\I\\T\\A') : '-' }}</span>
                                                 </div>
                                             </td>
                                             <td class="whitespace-nowrap">

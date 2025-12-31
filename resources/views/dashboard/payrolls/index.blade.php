@@ -82,200 +82,166 @@
                         </div>
                         <!-- End Header -->
 
-                        <!-- Table -->
-                        <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
-                            <thead class="bg-gray-50 dark:bg-neutral-800">
-                                <tr>
-
-                                    <th scope="col" class="px-6 py-3 text-start">
-                                        <div class="flex items-center gap-x-2">
-                                            <span
-                                                class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
-                                                Employee
-                                            </span>
-                                        </div>
-                                    </th>
-
-                                    <th scope="col" class="px-6 py-3 text-start">
-                                        <div class="flex items-center gap-x-2">
-                                            <span
-                                                class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
-                                                Salary
-                                            </span>
-                                        </div>
-                                    </th>
-
-                                    <th scope="col" class="px-6 py-3 text-start">
-                                        <div class="flex items-center gap-x-2">
-                                            <span
-                                                class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
-                                                Bonuses
-                                            </span>
-                                        </div>
-                                    </th>
-
-                                    <th scope="col" class="px-6 py-3 text-start">
-                                        <div class="flex items-center gap-x-2">
-                                            <span
-                                                class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
-                                                Deductions
-                                            </span>
-                                        </div>
-                                    </th>
-
-                                    <th scope="col" class="px-6 py-3 text-start">
-                                        <div class="flex items-center gap-x-2">
-                                            <span
-                                                class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
-                                                Net Salary
-                                            </span>
-                                        </div>
-                                    </th>
-
-                                    <th scope="col" class="px-6 py-3 text-start">
-                                        <div class="flex items-center gap-x-2">
-                                            <span
-                                                class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
-                                                Pay Date
-                                            </span>
-                                        </div>
-                                    </th>
-
-                                    <th scope="col" class="px-6 py-3 text-end"></th>
-                                </tr>
-                            </thead>
-
-                            <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-                                @foreach ($payrolls as $payroll)
+                        @if ($payrolls->isNotEmpty())
+                            <!-- Table -->
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+                                <thead class="bg-gray-50 dark:bg-neutral-800">
                                     <tr>
-                                        <td class="size-px whitespace-nowrap">
-                                            <div class="px-6 py-2">
-                                                <div class="flex items-center gap-x-3">
-                                                    <img class="size-9.5 inline-block rounded-full"
-                                                        src="https://placehold.net/avatar-3.svg" alt="Avatar">
-                                                    <div class="grow">
-                                                        <span
-                                                            class="block text-sm font-semibold text-gray-800 dark:text-neutral-200">{{ $payroll->employee->fullname }}</span>
-                                                        <span
-                                                            class="block text-sm text-gray-500 dark:text-neutral-500">{{ $payroll->employee->email }}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="size-px whitespace-nowrap">
-                                            <div class="px-6 py-2">
+
+                                        <th scope="col" class="px-6 py-3 text-start">
+                                            <div class="flex items-center gap-x-2">
                                                 <span
-                                                    class="text-sm text-gray-600 dark:text-neutral-400">{{ $payroll->formattedSalary }}</span>
-                                            </div>
-                                        </td>
-                                        <td class="size-px whitespace-nowrap">
-                                            <div class="px-6 py-2">
-                                                <span
-                                                    class="text-sm text-gray-600 dark:text-neutral-400">{{ $payroll->formattedBonuses }}</span>
-                                            </div>
-                                        </td>
-                                        <td class="size-px whitespace-nowrap">
-                                            <div class="px-6 py-2">
-                                                <span class="text-sm text-gray-600 dark:text-neutral-400">
-                                                    {{ $payroll->formattedDeductions }}
+                                                    class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
+                                                    Employee
                                                 </span>
                                             </div>
-                                        </td>
-                                        <td class="size-px whitespace-nowrap">
-                                            <div class="px-6 py-2">
+                                        </th>
+
+                                        <th scope="col" class="px-6 py-3 text-start">
+                                            <div class="flex items-center gap-x-2">
                                                 <span
-                                                    class="text-sm text-gray-600 dark:text-neutral-400">{{ $payroll->formattedNetSalary }}</span>
+                                                    class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
+                                                    Salary
+                                                </span>
                                             </div>
-                                        </td>
-                                        <td class="size-px whitespace-nowrap">
-                                            <div class="px-6 py-2">
+                                        </th>
+
+                                        <th scope="col" class="px-6 py-3 text-start">
+                                            <div class="flex items-center gap-x-2">
                                                 <span
-                                                    class="text-sm text-gray-600 dark:text-neutral-400">{{ $payroll->pay_date->format('d F, Y') }}</span>
+                                                    class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
+                                                    Bonuses
+                                                </span>
                                             </div>
-                                        </td>
-                                        <td class="size-px whitespace-nowrap">
-                                            <div class="flex justify-end px-6 py-1.5">
-                                                <div
-                                                    class="shadow-2xs group inline-flex items-center divide-x divide-gray-300 rounded-lg border border-gray-300 bg-white transition-all dark:divide-neutral-700 dark:border-neutral-700 dark:bg-neutral-700">
-                                                    <div class="hs-tooltip inline-block">
-                                                        <a class="hs-tooltip-toggle shadow-2xs focus:outline-hidden inline-flex items-center justify-center gap-x-2 rounded-s-md bg-white px-2 py-1.5 text-sm font-semibold text-gray-800 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
-                                                            href="#">
-                                                            <svg class="size-4" xmlns="http://www.w3.org/2000/svg"
-                                                                width="16" height="16" fill="currentColor"
-                                                                viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-                                                                <path
-                                                                    d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
-                                                            </svg>
+                                        </th>
+
+                                        <th scope="col" class="px-6 py-3 text-start">
+                                            <div class="flex items-center gap-x-2">
+                                                <span
+                                                    class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
+                                                    Deductions
+                                                </span>
+                                            </div>
+                                        </th>
+
+                                        <th scope="col" class="px-6 py-3 text-start">
+                                            <div class="flex items-center gap-x-2">
+                                                <span
+                                                    class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
+                                                    Net Salary
+                                                </span>
+                                            </div>
+                                        </th>
+
+                                        <th scope="col" class="px-6 py-3 text-start">
+                                            <div class="flex items-center gap-x-2">
+                                                <span
+                                                    class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
+                                                    Pay Date
+                                                </span>
+                                            </div>
+                                        </th>
+
+                                        <th scope="col" class="px-6 py-3 text-end"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+                                    @foreach ($payrolls as $payroll)
+                                        <tr>
+                                            <td class="size-px whitespace-nowrap">
+                                                <div class="px-6 py-2">
+                                                    <div class="flex items-center gap-x-3">
+                                                        <img class="size-9.5 inline-block rounded-full"
+                                                            src="https://placehold.net/avatar-3.svg" alt="Avatar">
+                                                        <div class="grow">
                                                             <span
-                                                                class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible shadow-2xs invisible absolute z-10 inline-block rounded-md bg-gray-900 px-2 py-1 text-xs font-medium text-white opacity-0 transition-opacity dark:bg-neutral-700"
-                                                                role="tooltip">
-                                                                Download PDF
-                                                            </span>
-                                                        </a>
+                                                                class="block text-sm font-semibold text-gray-800 dark:text-neutral-200">{{ $payroll->employee->fullname }}</span>
+                                                            <span
+                                                                class="block text-sm text-gray-500 dark:text-neutral-500">{{ $payroll->employee->email }}</span>
+                                                        </div>
                                                     </div>
+                                                </div>
+                                            </td>
+                                            <td class="size-px whitespace-nowrap">
+                                                <div class="px-6 py-2">
+                                                    <span
+                                                        class="text-sm text-gray-600 dark:text-neutral-400">{{ $payroll->formattedSalary }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="size-px whitespace-nowrap">
+                                                <div class="px-6 py-2">
+                                                    <span
+                                                        class="text-sm text-gray-600 dark:text-neutral-400">{{ $payroll->formattedBonuses }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="size-px whitespace-nowrap">
+                                                <div class="px-6 py-2">
+                                                    <span class="text-sm text-gray-600 dark:text-neutral-400">
+                                                        {{ $payroll->formattedDeductions }}
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td class="size-px whitespace-nowrap">
+                                                <div class="px-6 py-2">
+                                                    <span
+                                                        class="text-sm text-gray-600 dark:text-neutral-400">{{ $payroll->formattedNetSalary }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="size-px whitespace-nowrap">
+                                                <div class="px-6 py-2">
+                                                    <span
+                                                        class="text-sm text-gray-600 dark:text-neutral-400">{{ $payroll->pay_date->format('d F, Y') }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="size-px whitespace-nowrap">
+                                                <div class="flex justify-end px-6 py-1.5">
                                                     <div
-                                                        class="hs-dropdown relative inline-flex [--placement:bottom-right]">
-                                                        <button id="hs-table-dropdown-1" type="button"
-                                                            class="hs-dropdown-toggle shadow-2xs focus:outline-hidden inline-flex items-center justify-center gap-x-2 rounded-e-md bg-white px-2 py-1.5 text-sm font-semibold text-gray-800 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
-                                                            aria-haspopup="menu" aria-expanded="false"
-                                                            aria-label="Dropdown">
-                                                            <svg class="size-4" xmlns="http://www.w3.org/2000/svg"
-                                                                width="16" height="16" fill="currentColor"
-                                                                viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                                                            </svg>
-                                                        </button>
-                                                        <div class="hs-dropdown-menu duration hs-dropdown-open:opacity-100 z-10 mt-2 hidden min-w-40 divide-y divide-gray-200 rounded-lg bg-white p-2 opacity-0 shadow-2xl transition-[opacity,margin] dark:divide-neutral-700 dark:border dark:border-neutral-700 dark:bg-neutral-800"
-                                                            role="menu" aria-orientation="vertical"
-                                                            aria-labelledby="hs-table-dropdown-1">
-                                                            <div class="py-2 first:pt-0 last:pb-0">
+                                                        class="shadow-2xs group inline-flex items-center divide-x divide-gray-300 rounded-lg border border-gray-300 bg-white transition-all dark:divide-neutral-700 dark:border-neutral-700 dark:bg-neutral-700">
+                                                        <div class="hs-tooltip inline-block">
+                                                            <a class="hs-tooltip-toggle shadow-2xs focus:outline-hidden inline-flex items-center justify-center gap-x-2 rounded-s-md bg-white px-2 py-1.5 text-sm font-semibold text-gray-800 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+                                                                href="#">
+                                                                <svg class="size-4" xmlns="http://www.w3.org/2000/svg"
+                                                                    width="16" height="16" fill="currentColor"
+                                                                    viewBox="0 0 16 16">
+                                                                    <path
+                                                                        d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                                                    <path
+                                                                        d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                                                                </svg>
                                                                 <span
-                                                                    class="block px-3 py-2 text-xs font-medium uppercase text-gray-400 dark:text-neutral-600">
-                                                                    Options
+                                                                    class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible shadow-2xs invisible absolute z-10 inline-block rounded-md bg-gray-900 px-2 py-1 text-xs font-medium text-white opacity-0 transition-opacity dark:bg-neutral-700"
+                                                                    role="tooltip">
+                                                                    Download PDF
                                                                 </span>
-                                                                <button type="button"
-                                                                    class="focus:outline-hidden flex w-full cursor-pointer items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
-                                                                    aria-haspopup="dialog" aria-expanded="false"
-                                                                    aria-controls="preview-invoice"
-                                                                    data-hs-overlay="#preview-invoice">
-                                                                    <svg class="size-4"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        width="24" height="24"
-                                                                        viewBox="0 0 24 24" fill="none"
-                                                                        stroke="currentColor" stroke-width="2"
-                                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                                        class="lucide lucide-eye-icon lucide-eye">
-                                                                        <path
-                                                                            d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
-                                                                        <circle cx="12" cy="12" r="3" />
-                                                                    </svg>
-                                                                    Preview
-                                                                </button>
-                                                                <a class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
-                                                                    href="{{ route('payrolls.edit', $payroll->id) }}">
-                                                                    <svg class="size-4"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        width="24" height="24"
-                                                                        viewBox="0 0 24 24" fill="none"
-                                                                        stroke="currentColor" stroke-width="2"
-                                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                                        class="lucide lucide-pencil-icon lucide-pencil">
-                                                                        <path
-                                                                            d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
-                                                                        <path d="m15 5 4 4" />
-                                                                    </svg>
-                                                                    Edit
-                                                                </a>
-                                                                <form class="block"
-                                                                    action="{{ route('payrolls.destroy', $payroll->id) }}"
-                                                                    method="post">
-                                                                    @csrf
-                                                                    @method('delete')
-                                                                    <button type="submit"
-                                                                        class="w-full focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300 cursor-pointer">
+                                                            </a>
+                                                        </div>
+                                                        <div
+                                                            class="hs-dropdown relative inline-flex [--placement:bottom-right]">
+                                                            <button id="hs-table-dropdown-1" type="button"
+                                                                class="hs-dropdown-toggle shadow-2xs focus:outline-hidden inline-flex items-center justify-center gap-x-2 rounded-e-md bg-white px-2 py-1.5 text-sm font-semibold text-gray-800 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+                                                                aria-haspopup="menu" aria-expanded="false"
+                                                                aria-label="Dropdown">
+                                                                <svg class="size-4" xmlns="http://www.w3.org/2000/svg"
+                                                                    width="16" height="16" fill="currentColor"
+                                                                    viewBox="0 0 16 16">
+                                                                    <path
+                                                                        d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                                                </svg>
+                                                            </button>
+                                                            <div class="hs-dropdown-menu duration hs-dropdown-open:opacity-100 z-10 mt-2 hidden min-w-40 divide-y divide-gray-200 rounded-lg bg-white p-2 opacity-0 shadow-2xl transition-[opacity,margin] dark:divide-neutral-700 dark:border dark:border-neutral-700 dark:bg-neutral-800"
+                                                                role="menu" aria-orientation="vertical"
+                                                                aria-labelledby="hs-table-dropdown-1">
+                                                                <div class="py-2 first:pt-0 last:pb-0">
+                                                                    <span
+                                                                        class="block px-3 py-2 text-xs font-medium uppercase text-gray-400 dark:text-neutral-600">
+                                                                        Options
+                                                                    </span>
+                                                                    <button type="button"
+                                                                        class="focus:outline-hidden flex w-full cursor-pointer items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
+                                                                        aria-haspopup="dialog" aria-expanded="false"
+                                                                        aria-controls="preview-invoice"
+                                                                        data-hs-overlay="#preview-invoice">
                                                                         <svg class="size-4"
                                                                             xmlns="http://www.w3.org/2000/svg"
                                                                             width="24" height="24"
@@ -283,59 +249,138 @@
                                                                             stroke="currentColor" stroke-width="2"
                                                                             stroke-linecap="round"
                                                                             stroke-linejoin="round"
-                                                                            class="lucide lucide-trash-icon lucide-trash">
+                                                                            class="lucide lucide-eye-icon lucide-eye">
                                                                             <path
-                                                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
-                                                                            <path d="M3 6h18" />
-                                                                            <path
-                                                                                d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                                                                d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+                                                                            <circle cx="12" cy="12"
+                                                                                r="3" />
                                                                         </svg>
-                                                                        Delete
+                                                                        Preview
                                                                     </button>
-                                                                </form>
-                                                            </div>
-                                                            <div class="py-2 first:pt-0 last:pb-0">
-                                                                <span
-                                                                    class="block px-3 py-2 text-xs font-medium uppercase text-gray-400 dark:text-neutral-600">
-                                                                    Download options
-                                                                </span>
-                                                                <a class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
-                                                                    href="#">
-                                                                    <svg class="size-4"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        width="16" height="16"
-                                                                        fill="currentColor" viewBox="0 0 16 16">
-                                                                        <path
-                                                                            d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
-                                                                        <path
-                                                                            d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
-                                                                    </svg>
-                                                                    Print
-                                                                </a>
-                                                                <a class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
-                                                                    href="#">
-                                                                    <svg class="size-4"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        width="16" height="16"
-                                                                        fill="currentColor" viewBox="0 0 16 16">
-                                                                        <path
-                                                                            d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
-                                                                        <path
-                                                                            d="M4.603 14.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.697 19.697 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.712 5.712 0 0 1-.911-.95 11.651 11.651 0 0 0-1.997.406 11.307 11.307 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.266.266 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.71 12.71 0 0 1 1.01-.193 11.744 11.744 0 0 1-.51-.858 20.801 20.801 0 0 1-.5 1.05zm2.446.45c.15.163.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.876 3.876 0 0 0-.612-.053zM8.078 7.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z" />
-                                                                    </svg>
-                                                                    .PDF
-                                                                </a>
+                                                                    <a class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
+                                                                        href="{{ route('payrolls.edit', $payroll->id) }}">
+                                                                        <svg class="size-4"
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            width="24" height="24"
+                                                                            viewBox="0 0 24 24" fill="none"
+                                                                            stroke="currentColor" stroke-width="2"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            class="lucide lucide-pencil-icon lucide-pencil">
+                                                                            <path
+                                                                                d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+                                                                            <path d="m15 5 4 4" />
+                                                                        </svg>
+                                                                        Edit
+                                                                    </a>
+                                                                    <form class="block"
+                                                                        action="{{ route('payrolls.destroy', $payroll->id) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        @method('delete')
+                                                                        <button type="submit"
+                                                                            class="focus:outline-hidden flex w-full cursor-pointer items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300">
+                                                                            <svg class="size-4"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24" height="24"
+                                                                                viewBox="0 0 24 24" fill="none"
+                                                                                stroke="currentColor" stroke-width="2"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round"
+                                                                                class="lucide lucide-trash-icon lucide-trash">
+                                                                                <path
+                                                                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+                                                                                <path d="M3 6h18" />
+                                                                                <path
+                                                                                    d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                                                            </svg>
+                                                                            Delete
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="py-2 first:pt-0 last:pb-0">
+                                                                    <span
+                                                                        class="block px-3 py-2 text-xs font-medium uppercase text-gray-400 dark:text-neutral-600">
+                                                                        Download options
+                                                                    </span>
+                                                                    <a class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
+                                                                        href="#">
+                                                                        <svg class="size-4"
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            width="16" height="16"
+                                                                            fill="currentColor" viewBox="0 0 16 16">
+                                                                            <path
+                                                                                d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+                                                                            <path
+                                                                                d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
+                                                                        </svg>
+                                                                        Print
+                                                                    </a>
+                                                                    <a class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
+                                                                        href="#">
+                                                                        <svg class="size-4"
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            width="16" height="16"
+                                                                            fill="currentColor" viewBox="0 0 16 16">
+                                                                            <path
+                                                                                d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                                                                            <path
+                                                                                d="M4.603 14.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.697 19.697 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.712 5.712 0 0 1-.911-.95 11.651 11.651 0 0 0-1.997.406 11.307 11.307 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.266.266 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.71 12.71 0 0 1 1.01-.193 11.744 11.744 0 0 1-.51-.858 20.801 20.801 0 0 1-.5 1.05zm2.446.45c.15.163.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.876 3.876 0 0 0-.612-.053zM8.078 7.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z" />
+                                                                        </svg>
+                                                                        .PDF
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- End Table -->
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- End Table -->
+                        @else
+                            <div
+                                class="min-h-100 mx-auto flex w-full max-w-sm flex-col items-center justify-center px-6 py-4">
+                                <div
+                                    class="flex size-11 items-center justify-center rounded-lg bg-gray-100 dark:bg-neutral-800">
+                                    <svg class="size-6 shrink-0 text-gray-600 dark:text-neutral-400"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="lucide lucide-banknote-x-icon lucide-banknote-x">
+                                        <path d="M13 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5" />
+                                        <path d="m17 17 5 5" />
+                                        <path d="M18 12h.01" />
+                                        <path d="m22 17-5 5" />
+                                        <path d="M6 12h.01" />
+                                        <circle cx="12" cy="12" r="2" />
+                                    </svg>
+                                </div>
+
+                                <h2 class="mt-5 font-semibold text-gray-800 dark:text-white">
+                                    No payroll available
+                                </h2>
+                                <p class="mt-2 text-sm text-gray-600 dark:text-neutral-400">
+                                    Show information {{ session('role') === 'Manager' ? 'the employee' : 'of your' }} payroll.
+                                </p>
+
+                                <div class="mt-5 flex flex-col gap-2 sm:flex-row">
+                                    <a href="{{ route('payrolls.create') }}"
+                                        class="focus:outline-hidden inline-flex items-center justify-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 disabled:pointer-events-none disabled:opacity-50">
+                                        <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path d="M5 12h14" />
+                                            <path d="M12 5v14" />
+                                        </svg>
+                                        Create a new payroll
+                                    </a>
+                                </div>
+                            </div>
+                        @endif
 
                         <!-- Footer -->
                         <div

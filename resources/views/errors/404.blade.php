@@ -25,14 +25,17 @@
                     <p class="mt-3 text-gray-600 dark:text-neutral-400">Oops, something went wrong.</p>
                     <p class="text-gray-600 dark:text-neutral-400">Sorry, we couldn't find your page.</p>
                     <div class="mt-5 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-3">
+                        @php
+                            $prevUrl = url()->previous();
+                        @endphp
                         <a class="focus:outline-hidden inline-flex w-full items-center justify-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-4 py-3 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 disabled:pointer-events-none disabled:opacity-50 sm:w-auto"
-                            href="{{ route('dashboard') }}">
+                            href="{{ $prevUrl !== url()->current() ? $prevUrl : route('dashboard') }}">
                             <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24"
                                 height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round">
                                 <path d="m15 18-6-6 6-6" />
                             </svg>
-                            Back to dashboard
+                            Go back
                         </a>
                     </div>
                 </div>

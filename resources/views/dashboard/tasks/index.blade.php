@@ -246,7 +246,7 @@
                                                         <div
                                                             class="hs-dropdown relative inline-flex [--placement:bottom-right]">
                                                             <button id="hs-table-dropdown-1" type="button"
-                                                                class="hs-dropdown-toggle shadow-2xs focus:outline-hidden inline-flex items-center justify-center gap-x-2 rounded-e-md bg-white px-2 py-1.5 text-sm font-semibold text-gray-800 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+                                                                class="hs-dropdown-toggle shadow-2xs focus:outline-hidden inline-flex items-center justify-center gap-x-2 rounded-e-md bg-white px-2 py-1.5 text-sm font-semibold text-gray-800 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 cursor-pointer"
                                                                 aria-haspopup="menu" aria-expanded="false"
                                                                 aria-label="Dropdown">
                                                                 <svg class="size-4" xmlns="http://www.w3.org/2000/svg"
@@ -264,157 +264,169 @@
                                                                         class="block px-3 py-2 text-xs font-medium uppercase text-gray-400 dark:text-neutral-600">
                                                                         Options
                                                                     </span>
-                                                                    @if ($task->status === 'complete')
-                                                                        <form
-                                                                            action="{{ route('tasks.pending', $task->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('PATCH')
-                                                                            <button type="submit"
-                                                                                class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300">
-                                                                                <svg class="size-4"
-                                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                                    width="24" height="24"
-                                                                                    viewBox="0 0 24 24" fill="none"
-                                                                                    stroke="currentColor"
-                                                                                    stroke-width="2"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    class="lucide lucide-clipboard-clock-icon lucide-clipboard-clock">
-                                                                                    <path d="M16 14v2.2l1.6 1" />
-                                                                                    <path
-                                                                                        d="M16 4h2a2 2 0 0 1 2 2v.832" />
-                                                                                    <path
-                                                                                        d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h2" />
-                                                                                    <circle cx="16"
-                                                                                        cy="16" r="6" />
-                                                                                    <rect x="8" y="2" width="8"
-                                                                                        height="4"
-                                                                                        rx="1" />
-                                                                                </svg>
-                                                                                Mark as pending
-                                                                            </button>
-                                                                        </form>
-                                                                        <form
-                                                                            action="{{ route('tasks.progress', $task->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('PATCH')
-                                                                            <button type="submit"
-                                                                                class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300">
-                                                                                <svg class="size-4"
-                                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                                    width="24" height="24"
-                                                                                    viewBox="0 0 24 24" fill="none"
-                                                                                    stroke="currentColor"
-                                                                                    stroke-width="2"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    class="lucide lucide-loader-circle-icon lucide-loader-circle">
-                                                                                    <path
-                                                                                        d="M21 12a9 9 0 1 1-6.219-8.56" />
-                                                                                </svg>
-                                                                                Mark as progress
-                                                                            </button>
-                                                                        </form>
-                                                                    @elseif ($task->status === 'pending')
-                                                                        <form
-                                                                            action="{{ route('tasks.progress', $task->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('PATCH')
-                                                                            <button type="submit"
-                                                                                class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300">
-                                                                                <svg class="size-4"
-                                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                                    width="24" height="24"
-                                                                                    viewBox="0 0 24 24" fill="none"
-                                                                                    stroke="currentColor"
-                                                                                    stroke-width="2"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    class="lucide lucide-loader-circle-icon lucide-loader-circle">
-                                                                                    <path
-                                                                                        d="M21 12a9 9 0 1 1-6.219-8.56" />
-                                                                                </svg>
-                                                                                Mark as progress
-                                                                            </button>
-                                                                        </form>
-                                                                        <form
-                                                                            action="{{ route('tasks.complete', $task->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('PATCH')
-                                                                            <button type="submit"
-                                                                                class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300">
-                                                                                <svg class="size-4"
-                                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                                    width="24" height="24"
-                                                                                    viewBox="0 0 24 24" fill="none"
-                                                                                    stroke="currentColor"
-                                                                                    stroke-width="2"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    class="lucide lucide-check-check-icon lucide-check-check">
-                                                                                    <path d="M18 6 7 17l-5-5" />
-                                                                                    <path d="m22 10-7.5 7.5L13 16" />
-                                                                                </svg>
-                                                                                Mark as complete
-                                                                            </button>
-                                                                        </form>
-                                                                    @else
-                                                                        <form
-                                                                            action="{{ route('tasks.pending', $task->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('PATCH')
-                                                                            <button type="submit"
-                                                                                class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300">
-                                                                                <svg class="size-4"
-                                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                                    width="24" height="24"
-                                                                                    viewBox="0 0 24 24" fill="none"
-                                                                                    stroke="currentColor"
-                                                                                    stroke-width="2"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    class="lucide lucide-clipboard-clock-icon lucide-clipboard-clock">
-                                                                                    <path d="M16 14v2.2l1.6 1" />
-                                                                                    <path
-                                                                                        d="M16 4h2a2 2 0 0 1 2 2v.832" />
-                                                                                    <path
-                                                                                        d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h2" />
-                                                                                    <circle cx="16"
-                                                                                        cy="16" r="6" />
-                                                                                    <rect x="8" y="2" width="8"
-                                                                                        height="4"
-                                                                                        rx="1" />
-                                                                                </svg>
-                                                                                Mark as pending
-                                                                            </button>
-                                                                        </form>
-                                                                        <form
-                                                                            action="{{ route('tasks.complete', $task->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('PATCH')
-                                                                            <button type="submit"
-                                                                                class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300">
-                                                                                <svg class="size-4"
-                                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                                    width="24" height="24"
-                                                                                    viewBox="0 0 24 24" fill="none"
-                                                                                    stroke="currentColor"
-                                                                                    stroke-width="2"
-                                                                                    stroke-linecap="round"
-                                                                                    stroke-linejoin="round"
-                                                                                    class="lucide lucide-check-check-icon lucide-check-check">
-                                                                                    <path d="M18 6 7 17l-5-5" />
-                                                                                    <path d="m22 10-7.5 7.5L13 16" />
-                                                                                </svg>
-                                                                                Mark as complete
-                                                                            </button>
-                                                                        </form>
+                                                                    @if (session('role') === 'Manager')
+                                                                        @if ($task->status === 'complete')
+                                                                            <form
+                                                                                action="{{ route('tasks.pending', $task->id) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('PATCH')
+                                                                                <button type="submit"
+                                                                                    class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300">
+                                                                                    <svg class="size-4"
+                                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                                        width="24" height="24"
+                                                                                        viewBox="0 0 24 24"
+                                                                                        fill="none"
+                                                                                        stroke="currentColor"
+                                                                                        stroke-width="2"
+                                                                                        stroke-linecap="round"
+                                                                                        stroke-linejoin="round"
+                                                                                        class="lucide lucide-clipboard-clock-icon lucide-clipboard-clock">
+                                                                                        <path d="M16 14v2.2l1.6 1" />
+                                                                                        <path
+                                                                                            d="M16 4h2a2 2 0 0 1 2 2v.832" />
+                                                                                        <path
+                                                                                            d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h2" />
+                                                                                        <circle cx="16"
+                                                                                            cy="16" r="6" />
+                                                                                        <rect x="8" y="2"
+                                                                                            width="8"
+                                                                                            height="4"
+                                                                                            rx="1" />
+                                                                                    </svg>
+                                                                                    Mark as pending
+                                                                                </button>
+                                                                            </form>
+                                                                            <form
+                                                                                action="{{ route('tasks.progress', $task->id) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('PATCH')
+                                                                                <button type="submit"
+                                                                                    class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300">
+                                                                                    <svg class="size-4"
+                                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                                        width="24" height="24"
+                                                                                        viewBox="0 0 24 24"
+                                                                                        fill="none"
+                                                                                        stroke="currentColor"
+                                                                                        stroke-width="2"
+                                                                                        stroke-linecap="round"
+                                                                                        stroke-linejoin="round"
+                                                                                        class="lucide lucide-loader-circle-icon lucide-loader-circle">
+                                                                                        <path
+                                                                                            d="M21 12a9 9 0 1 1-6.219-8.56" />
+                                                                                    </svg>
+                                                                                    Mark as progress
+                                                                                </button>
+                                                                            </form>
+                                                                        @elseif ($task->status === 'pending')
+                                                                            <form
+                                                                                action="{{ route('tasks.progress', $task->id) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('PATCH')
+                                                                                <button type="submit"
+                                                                                    class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300">
+                                                                                    <svg class="size-4"
+                                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                                        width="24" height="24"
+                                                                                        viewBox="0 0 24 24"
+                                                                                        fill="none"
+                                                                                        stroke="currentColor"
+                                                                                        stroke-width="2"
+                                                                                        stroke-linecap="round"
+                                                                                        stroke-linejoin="round"
+                                                                                        class="lucide lucide-loader-circle-icon lucide-loader-circle">
+                                                                                        <path
+                                                                                            d="M21 12a9 9 0 1 1-6.219-8.56" />
+                                                                                    </svg>
+                                                                                    Mark as progress
+                                                                                </button>
+                                                                            </form>
+                                                                            <form
+                                                                                action="{{ route('tasks.complete', $task->id) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('PATCH')
+                                                                                <button type="submit"
+                                                                                    class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300">
+                                                                                    <svg class="size-4"
+                                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                                        width="24" height="24"
+                                                                                        viewBox="0 0 24 24"
+                                                                                        fill="none"
+                                                                                        stroke="currentColor"
+                                                                                        stroke-width="2"
+                                                                                        stroke-linecap="round"
+                                                                                        stroke-linejoin="round"
+                                                                                        class="lucide lucide-check-check-icon lucide-check-check">
+                                                                                        <path d="M18 6 7 17l-5-5" />
+                                                                                        <path
+                                                                                            d="m22 10-7.5 7.5L13 16" />
+                                                                                    </svg>
+                                                                                    Mark as complete
+                                                                                </button>
+                                                                            </form>
+                                                                        @else
+                                                                            <form
+                                                                                action="{{ route('tasks.pending', $task->id) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('PATCH')
+                                                                                <button type="submit"
+                                                                                    class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300">
+                                                                                    <svg class="size-4"
+                                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                                        width="24" height="24"
+                                                                                        viewBox="0 0 24 24"
+                                                                                        fill="none"
+                                                                                        stroke="currentColor"
+                                                                                        stroke-width="2"
+                                                                                        stroke-linecap="round"
+                                                                                        stroke-linejoin="round"
+                                                                                        class="lucide lucide-clipboard-clock-icon lucide-clipboard-clock">
+                                                                                        <path d="M16 14v2.2l1.6 1" />
+                                                                                        <path
+                                                                                            d="M16 4h2a2 2 0 0 1 2 2v.832" />
+                                                                                        <path
+                                                                                            d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h2" />
+                                                                                        <circle cx="16"
+                                                                                            cy="16" r="6" />
+                                                                                        <rect x="8" y="2"
+                                                                                            width="8"
+                                                                                            height="4"
+                                                                                            rx="1" />
+                                                                                    </svg>
+                                                                                    Mark as pending
+                                                                                </button>
+                                                                            </form>
+                                                                            <form
+                                                                                action="{{ route('tasks.complete', $task->id) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('PATCH')
+                                                                                <button type="submit"
+                                                                                    class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300">
+                                                                                    <svg class="size-4"
+                                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                                        width="24" height="24"
+                                                                                        viewBox="0 0 24 24"
+                                                                                        fill="none"
+                                                                                        stroke="currentColor"
+                                                                                        stroke-width="2"
+                                                                                        stroke-linecap="round"
+                                                                                        stroke-linejoin="round"
+                                                                                        class="lucide lucide-check-check-icon lucide-check-check">
+                                                                                        <path d="M18 6 7 17l-5-5" />
+                                                                                        <path
+                                                                                            d="m22 10-7.5 7.5L13 16" />
+                                                                                    </svg>
+                                                                                    Mark as complete
+                                                                                </button>
+                                                                            </form>
+                                                                        @endif
                                                                     @endif
                                                                     <a class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
                                                                         href="{{ route('tasks.edit', $task->id) }}">

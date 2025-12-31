@@ -15,7 +15,7 @@
                 <!-- Dropdown -->
                 <div class="hs-dropdown relative inline-flex [--placement:bottom-right]">
                     <button id="hs-dropdown-account" type="button"
-                        class="size-9.5 focus:outline-hidden inline-flex items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 disabled:pointer-events-none disabled:opacity-50 dark:text-white"
+                        class="size-9.5 focus:outline-hidden inline-flex items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-800 disabled:pointer-events-none disabled:opacity-50 dark:text-white cursor-pointer"
                         aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
                         <img class="size-9.5 shrink-0 rounded-full" src="https://placehold.net/avatar-3.svg"
                             alt="Avatar">
