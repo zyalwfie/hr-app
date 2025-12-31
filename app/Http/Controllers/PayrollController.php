@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Payroll;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class PayrollController extends Controller
 {
@@ -13,7 +14,13 @@ class PayrollController extends Controller
      */
     public function index()
     {
-        $payrolls = Payroll::availableEmployee()->get();
+        $payrolls = Payroll::availableEmployee();
+
+        if (Session::get('role') !== 'Manager') {
+            $payrolls = $payrolls->where('employee_id', Session::get('employee_id'));
+        }
+
+        $payrolls = $payrolls->get();
 
         return view('dashboard.payrolls.index', compact('payrolls'));
     }

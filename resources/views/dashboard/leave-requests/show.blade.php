@@ -181,31 +181,46 @@
                             <!-- End Item -->
                         </div>
 
-                        <!-- Footer -->
-                        <div class="border-t border-gray-200 pt-4 xl:mt-auto dark:border-neutral-700">
-                            <div class="flex flex-wrap items-center justify-between gap-1.5">
-                                <div>
-                                    <a href="{{ route('leave-requests.edit', $leave_request->id) }}"
-                                        class="focus:outline-hidden inline-flex items-center gap-x-0.5 text-[13px] text-indigo-700 underline underline-offset-2 hover:decoration-2 focus:decoration-2 disabled:pointer-events-none disabled:opacity-50 dark:text-indigo-400">
-                                        Edit leave request
-                                        <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="m9 18 6-6-6-6"></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                                <!-- End Col -->
+                        @if (session('role') === 'Manager')
+                            <!-- Footer -->
+                            <div class="border-t border-gray-200 pt-4 xl:mt-auto dark:border-neutral-700">
+                                <div class="flex flex-wrap items-center justify-between gap-1.5">
+                                    <div>
+                                        <a href="{{ route('leave-requests.edit', $leave_request->id) }}"
+                                            class="focus:outline-hidden inline-flex items-center gap-x-0.5 text-[13px] text-indigo-700 underline underline-offset-2 hover:decoration-2 focus:decoration-2 disabled:pointer-events-none disabled:opacity-50 dark:text-indigo-400">
+                                            Edit leave request
+                                            <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="m9 18 6-6-6-6"></path>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <!-- End Col -->
 
-                                <div class="flex items-center gap-2">
-                                    @if ($leave_request->status != 'approved')
-                                        <form action="{{ route('leave-requests.approve', $leave_request->id) }}"
-                                            method="post">
-                                            @csrf
-                                            @method('patch')
-                                            <button type="submit"
-                                                class="shadow-2xs focus:outline-hidden inline-flex cursor-pointer items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-2.5 py-1.5 text-sm font-medium text-green-500 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+                                    <div class="flex items-center gap-2">
+                                        @if ($leave_request->status != 'approved')
+                                            <form action="{{ route('leave-requests.approve', $leave_request->id) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('patch')
+                                                <button type="submit"
+                                                    class="shadow-2xs focus:outline-hidden inline-flex cursor-pointer items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-2.5 py-1.5 text-sm font-medium text-green-500 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+                                                    <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="lucide lucide-circle-check-big-icon lucide-circle-check-big">
+                                                        <path d="M21.801 10A10 10 0 1 1 17 3.335" />
+                                                        <path d="m9 11 3 3L22 4" />
+                                                    </svg>
+                                                    Approve
+                                                </button>
+                                            </form>
+                                        @else
+                                            <button type="button" disabled
+                                                class="shadow-2xs focus:outline-hidden inline-flex cursor-not-allowed items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-2.5 py-1.5 text-sm font-medium text-green-500 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
                                                 <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg"
                                                     width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -214,45 +229,32 @@
                                                     <path d="M21.801 10A10 10 0 1 1 17 3.335" />
                                                     <path d="m9 11 3 3L22 4" />
                                                 </svg>
-                                                Approve
+                                                Approved
+                                            </button>
+                                        @endif
+                                        <form action="{{ route('leave-requests.destroy', $leave_request->id) }}"
+                                            method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit"
+                                                class="shadow-2xs focus:outline-hidden inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-4 py-1.5 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 cursor-pointer">
+                                                <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="lucide lucide-trash-icon lucide-trash">
+                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+                                                    <path d="M3 6h18" />
+                                                    <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                                </svg>
+                                                Delete
                                             </button>
                                         </form>
-                                    @else
-                                        <button type="button" disabled
-                                            class="shadow-2xs focus:outline-hidden inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-2.5 py-1.5 text-sm font-medium text-green-500 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 cursor-not-allowed">
-                                            <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg"
-                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                class="lucide lucide-circle-check-big-icon lucide-circle-check-big">
-                                                <path d="M21.801 10A10 10 0 1 1 17 3.335" />
-                                                <path d="m9 11 3 3L22 4" />
-                                            </svg>
-                                            Approved
-                                        </button>
-                                    @endif
-                                    <form action="{{ route('leave-requests.destroy', $leave_request->id) }}"
-                                        method="post">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit"
-                                            class="shadow-2xs focus:outline-hidden inline-flex cursor-pointer items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-2.5 py-1.5 text-sm font-medium text-red-500 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
-                                            <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg"
-                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round" class="lucide lucide-trash-icon lucide-trash">
-                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
-                                                <path d="M3 6h18" />
-                                                <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                                            </svg>
-                                            Delete
-                                        </button>
-                                    </form>
+                                    </div>
+                                    <!-- End Col -->
                                 </div>
-                                <!-- End Col -->
                             </div>
-                        </div>
-                        <!-- End Footer -->
+                            <!-- End Footer -->
+                        @endif
                     </div>
                 </div>
             </div>

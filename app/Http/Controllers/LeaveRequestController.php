@@ -13,7 +13,13 @@ class LeaveRequestController extends Controller
      */
     public function index()
     {
-        $leave_requests = LeaveRequest::availableEmployee()->get();
+        $leave_requests = LeaveRequest::availableEmployee();
+
+        if (session('role') !== 'Manager') {
+            $leave_requests = $leave_requests->where('employee_id', session('employee_id'));
+        }
+
+        $leave_requests = $leave_requests->get();
 
         return view('dashboard.leave-requests.index', compact('leave_requests'));
     }
@@ -23,7 +29,11 @@ class LeaveRequestController extends Controller
      */
     public function create()
     {
-        $employees = Employee::orderBy('fullname')->get();
+        $employees = null;
+
+        if (session('role') === 'Manager') {
+            $employees = Employee::orderBy('fullname')->get();
+        }
 
         return view('dashboard.leave-requests.create', compact('employees'));
     }

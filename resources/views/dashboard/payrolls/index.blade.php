@@ -66,17 +66,19 @@
 
                             <div class="sm:col-span-2 md:grow">
                                 <div class="flex justify-end gap-x-2">
-                                    <a href="{{ route('payrolls.create') }}"
-                                        class="focus:outline-hidden inline-flex items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 disabled:pointer-events-none disabled:opacity-50">
-                                        <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24"
-                                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                            class="lucide lucide-plus-icon lucide-plus">
-                                            <path d="M5 12h14" />
-                                            <path d="M12 5v14" />
-                                        </svg>
-                                        Create new payroll
-                                    </a>
+                                    @if (session('role') === 'Manager')
+                                        <a href="{{ route('payrolls.create') }}"
+                                            class="focus:outline-hidden inline-flex items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 disabled:pointer-events-none disabled:opacity-50">
+                                            <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus">
+                                                <path d="M5 12h14" />
+                                                <path d="M12 5v14" />
+                                            </svg>
+                                            Create new payroll
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -257,29 +259,9 @@
                                                                         </svg>
                                                                         Preview
                                                                     </button>
-                                                                    <a class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
-                                                                        href="{{ route('payrolls.edit', $payroll->id) }}">
-                                                                        <svg class="size-4"
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none"
-                                                                            stroke="currentColor" stroke-width="2"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round"
-                                                                            class="lucide lucide-pencil-icon lucide-pencil">
-                                                                            <path
-                                                                                d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
-                                                                            <path d="m15 5 4 4" />
-                                                                        </svg>
-                                                                        Edit
-                                                                    </a>
-                                                                    <form class="block"
-                                                                        action="{{ route('payrolls.destroy', $payroll->id) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        @method('delete')
-                                                                        <button type="submit"
-                                                                            class="focus:outline-hidden flex w-full cursor-pointer items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300">
+                                                                    @if (session('role') === 'Manager')
+                                                                        <a class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
+                                                                            href="{{ route('payrolls.edit', $payroll->id) }}">
                                                                             <svg class="size-4"
                                                                                 xmlns="http://www.w3.org/2000/svg"
                                                                                 width="24" height="24"
@@ -287,16 +269,39 @@
                                                                                 stroke="currentColor" stroke-width="2"
                                                                                 stroke-linecap="round"
                                                                                 stroke-linejoin="round"
-                                                                                class="lucide lucide-trash-icon lucide-trash">
+                                                                                class="lucide lucide-pencil-icon lucide-pencil">
                                                                                 <path
-                                                                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
-                                                                                <path d="M3 6h18" />
-                                                                                <path
-                                                                                    d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                                                                    d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+                                                                                <path d="m15 5 4 4" />
                                                                             </svg>
-                                                                            Delete
-                                                                        </button>
-                                                                    </form>
+                                                                            Edit
+                                                                        </a>
+                                                                        <form class="block"
+                                                                            action="{{ route('payrolls.destroy', $payroll->id) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('delete')
+                                                                            <button type="submit"
+                                                                                class="focus:outline-hidden flex w-full cursor-pointer items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300">
+                                                                                <svg class="size-4"
+                                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                                    width="24" height="24"
+                                                                                    viewBox="0 0 24 24" fill="none"
+                                                                                    stroke="currentColor"
+                                                                                    stroke-width="2"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    class="lucide lucide-trash-icon lucide-trash">
+                                                                                    <path
+                                                                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+                                                                                    <path d="M3 6h18" />
+                                                                                    <path
+                                                                                        d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                                                                </svg>
+                                                                                Delete
+                                                                            </button>
+                                                                        </form>
+                                                                    @endif
                                                                 </div>
                                                                 <div class="py-2 first:pt-0 last:pb-0">
                                                                     <span
@@ -363,22 +368,9 @@
                                     No payroll available
                                 </h2>
                                 <p class="mt-2 text-sm text-gray-600 dark:text-neutral-400">
-                                    Show information {{ session('role') === 'Manager' ? 'the employee' : 'of your' }} payroll.
+                                    Show information {{ session('role') === 'Manager' ? 'the employee' : 'of your' }}
+                                    payroll.
                                 </p>
-
-                                <div class="mt-5 flex flex-col gap-2 sm:flex-row">
-                                    <a href="{{ route('payrolls.create') }}"
-                                        class="focus:outline-hidden inline-flex items-center justify-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 disabled:pointer-events-none disabled:opacity-50">
-                                        <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg"
-                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path d="M5 12h14" />
-                                            <path d="M12 5v14" />
-                                        </svg>
-                                        Create a new payroll
-                                    </a>
-                                </div>
                             </div>
                         @endif
 
