@@ -64,26 +64,35 @@ class PresenceController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'longitude' => 'required',
-            'latitude' => 'required'
-        ]);
-
-        $officeLat = -8.599801795546826;
-        $officeLng = 116.1213972712707;
-        $radius = 20;
-
-        $distance = $this->distance(
-            $validated['latitude'],
-            $validated['longitude'],
-            $officeLat,
-            $officeLng
-        );
-
-        if ($distance > $radius) {
-            return back()->withErrors([
-                'location' => 'You are outside the office area.'
+        if (session('role') === 'Manager') {
+            $validated = $request->validate([
+                'employee_id' => 'required|exists:employees,id',
+                'check_in' => 'required',
+                'date' => 'required',
+                'status' => 'required'
             ]);
+        } else {
+            $validated = $request->validate([
+                'longitude' => 'required',
+                'latitude' => 'required'
+            ]);
+
+            $officeLat = -8.599801795546826;
+            $officeLng = 116.1213972712707;
+            $radius = 20;
+
+            $distance = $this->distance(
+                $validated['latitude'],
+                $validated['longitude'],
+                $officeLat,
+                $officeLng
+            );
+
+            if ($distance > $radius) {
+                return back()->withErrors([
+                    'location' => 'You are outside the office area.'
+                ]);
+            }
         }
 
         Presence::create([

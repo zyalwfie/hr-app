@@ -56,6 +56,8 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () 
     Route::resource('/leave-requests', LeaveRequestController::class)->only(['index', 'show', 'edit', 'update']);
 });
 
+Route::get('presences', [DashboardController::class, 'presences']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

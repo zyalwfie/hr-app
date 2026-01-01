@@ -35,5 +35,3 @@ export function buildChart(selector, optionsFunc, lightOptions, darkOptions) {
 
     observer.observe(document.documentElement, { attributes: true });
 }
-
-window.buildChart = buildChart;

@@ -38,7 +38,9 @@
                                 class="@error('employee_id') border-red-500 pe-11 @enderror block w-full rounded-lg border-gray-200 px-4 py-2 pe-9 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                                 <option selected="">Choose employee</option>
                                 @foreach ($employees as $employee)
-                                    <option value="{{ $employee->id }}" {{ old('employee_id') == $employee->id ? 'selected' : '' }}>{{ $employee->fullname }}</option>
+                                    <option value="{{ $employee->id }}"
+                                        {{ old('employee_id') == $employee->id ? 'selected' : '' }}>
+                                        {{ $employee->fullname }}</option>
                                 @endforeach
                             </select>
                             @error('employee_id')
@@ -154,7 +156,8 @@
                     <!-- End Col -->
 
                     <div class="sm:col-span-3">
-                        <label for="birth_date" class="mt-2.5 inline-block text-sm text-gray-800 dark:text-neutral-200">
+                        <label for="birth_date"
+                            class="mt-2.5 inline-block text-sm text-gray-800 dark:text-neutral-200">
                             Date
                         </label>
                     </div>

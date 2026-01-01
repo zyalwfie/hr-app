@@ -31,7 +31,6 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->string('fullname');
-            $table->string('email')->unique();
             $table->string('phone_number');
             $table->string('address');
             $table->date('birth_date');
@@ -64,13 +63,14 @@ return new class extends Migration
             $table->decimal('net_salary', 10, 2)->nullable();
             $table->date('pay_date');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('presences', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employee_id')->constrained('employees');
-            $table->date('check_in');
-            $table->date('check_out');
+            $table->date('check_in')->nullable();
+            $table->date('check_out')->nullable();
             $table->date('date');
             $table->string('status');
             $table->timestamps();

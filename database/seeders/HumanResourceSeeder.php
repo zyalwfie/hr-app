@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use function Symfony\Component\Clock\now;
 
@@ -16,6 +15,48 @@ class HumanResourceSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $statuses = ['present', 'late', 'absent', 'leave'];
+        $employeeIds = [1, 2, 3, 4, 5];
+
+        $startYear = 2025;
+        $months = range(1, 12);
+
+        $data = [];
+
+        foreach ($months as $month) {
+
+            for ($i = 0; $i < 20; $i++) {
+
+                $date = Carbon::create(
+                    $startYear,
+                    $month,
+                    rand(1, Carbon::create($startYear, $month)->daysInMonth)
+                );
+
+                $status = $statuses[array_rand($statuses)];
+
+                $checkIn = null;
+                $checkOut = null;
+
+                if (in_array($status, ['present', 'late'])) {
+                    $checkIn = $date->copy()->setTime(rand(7, 9), rand(0, 59));
+                    $checkOut = $date->copy()->setTime(rand(16, 18), rand(0, 59));
+                }
+
+                $data[] = [
+                    'employee_id' => $employeeIds[array_rand($employeeIds)],
+                    'check_in' => $checkIn,
+                    'check_out' => $checkOut,
+                    'date' => $date->toDateString(),
+                    'status' => $status,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'deleted_at' => null,
+                ];
+            }
+        }
+
         DB::table('departments')->insert([
             [
                 'name' => 'Human Resources',
@@ -126,7 +167,6 @@ class HumanResourceSeeder extends Seeder
         DB::table('employees')->insert([
             [
                 'fullname' => 'Andi Pratama',
-                'email' => 'andi.pratama@company.com',
                 'phone_number' => '081234567801',
                 'address' => 'Jakarta',
                 'birth_date' => '1990-03-15',
@@ -141,7 +181,6 @@ class HumanResourceSeeder extends Seeder
             ],
             [
                 'fullname' => 'Siti Rahmawati',
-                'email' => 'siti.rahmawati@company.com',
                 'phone_number' => '081234567802',
                 'address' => 'Bandung',
                 'birth_date' => '1994-07-21',
@@ -156,7 +195,6 @@ class HumanResourceSeeder extends Seeder
             ],
             [
                 'fullname' => 'Budi Santoso',
-                'email' => 'budi.santoso@company.com',
                 'phone_number' => '081234567803',
                 'address' => 'Surabaya',
                 'birth_date' => '1992-11-10',
@@ -171,7 +209,6 @@ class HumanResourceSeeder extends Seeder
             ],
             [
                 'fullname' => 'Dewi Lestari',
-                'email' => 'dewi.lestari@company.com',
                 'phone_number' => '081234567804',
                 'address' => 'Yogyakarta',
                 'birth_date' => '1996-05-02',
@@ -186,7 +223,6 @@ class HumanResourceSeeder extends Seeder
             ],
             [
                 'fullname' => 'Rizky Maulana',
-                'email' => 'rizky.maulana@company.com',
                 'phone_number' => '081234567805',
                 'address' => 'Malang',
                 'birth_date' => '2001-01-18',
@@ -247,28 +283,7 @@ class HumanResourceSeeder extends Seeder
             ],
         ]);
 
-        DB::table('presences')->insert([
-            [
-                'employee_id' => 1,
-                'check_in' => now(),
-                'check_out' => now(),
-                'date' => now(),
-                'status' => 'present',
-                'created_at' => now(),
-                'updated_at' => now(),
-                'deleted_at' => null,
-            ],
-            [
-                'employee_id' => 3,
-                'check_in' => now(),
-                'check_out' => now(),
-                'date' => now(),
-                'status' => 'present',
-                'created_at' => now(),
-                'updated_at' => now(),
-                'deleted_at' => null,
-            ],
-        ]);
+        DB::table('presences')->insert($data);
 
         DB::table('leave_requests')->insert([
             [
