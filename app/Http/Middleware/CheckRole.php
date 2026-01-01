@@ -23,8 +23,6 @@ class CheckRole
         $request->session()->put('role', $employee->role->title);
         $request->session()->put('employee_id', $employee->id);
 
-        // dd($employee);
-
         if (!in_array($employee->role->title, $roles)) abort(403);
 
         return $next($request);

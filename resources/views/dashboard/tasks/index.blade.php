@@ -129,17 +129,19 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <a class="focus:outline-hidden inline-flex items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 disabled:pointer-events-none disabled:opacity-50"
-                                            href="{{ route('tasks.create') }}">
-                                            <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg"
-                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M5 12h14" />
-                                                <path d="M12 5v14" />
-                                            </svg>
-                                            New task
-                                        </a>
+                                        @if (session('role') === 'Manager')
+                                            <a class="focus:outline-hidden inline-flex items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 disabled:pointer-events-none disabled:opacity-50"
+                                                href="{{ route('tasks.create') }}">
+                                                <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                    <path d="M5 12h14" />
+                                                    <path d="M12 5v14" />
+                                                </svg>
+                                                New task
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -246,7 +248,7 @@
                                                         <div
                                                             class="hs-dropdown relative inline-flex [--placement:bottom-right]">
                                                             <button id="hs-table-dropdown-1" type="button"
-                                                                class="hs-dropdown-toggle shadow-2xs focus:outline-hidden inline-flex items-center justify-center gap-x-2 rounded-e-md bg-white px-2 py-1.5 text-sm font-semibold text-gray-800 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 cursor-pointer"
+                                                                class="hs-dropdown-toggle shadow-2xs focus:outline-hidden inline-flex cursor-pointer items-center justify-center gap-x-2 rounded-e-md bg-white px-2 py-1.5 text-sm font-semibold text-gray-800 hover:bg-gray-50 focus:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
                                                                 aria-haspopup="menu" aria-expanded="false"
                                                                 aria-label="Dropdown">
                                                                 <svg class="size-4" xmlns="http://www.w3.org/2000/svg"
@@ -427,25 +429,25 @@
                                                                                 </button>
                                                                             </form>
                                                                         @endif
+                                                                        <a class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
+                                                                            href="{{ route('tasks.edit', $task->id) }}">
+                                                                            <svg class="size-4"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24" height="24"
+                                                                                viewBox="0 0 24 24" fill="none"
+                                                                                stroke="currentColor" stroke-width="2"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round"
+                                                                                class="lucide lucide-file-pen-line-icon lucide-file-pen-line">
+                                                                                <path
+                                                                                    d="m18.226 5.226-2.52-2.52A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-.351" />
+                                                                                <path
+                                                                                    d="M21.378 12.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
+                                                                                <path d="M8 18h1" />
+                                                                            </svg>
+                                                                            Edit
+                                                                        </a>
                                                                     @endif
-                                                                    <a class="focus:outline-hidden flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
-                                                                        href="{{ route('tasks.edit', $task->id) }}">
-                                                                        <svg class="size-4"
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none"
-                                                                            stroke="currentColor" stroke-width="2"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round"
-                                                                            class="lucide lucide-file-pen-line-icon lucide-file-pen-line">
-                                                                            <path
-                                                                                d="m18.226 5.226-2.52-2.52A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-.351" />
-                                                                            <path
-                                                                                d="M21.378 12.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
-                                                                            <path d="M8 18h1" />
-                                                                        </svg>
-                                                                        Edit
-                                                                    </a>
                                                                     <form class="w-full"
                                                                         action="{{ route('tasks.destroy', $task->id) }}"
                                                                         method="post">
