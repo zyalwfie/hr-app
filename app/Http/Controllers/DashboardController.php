@@ -10,6 +10,7 @@ use App\Models\Task;
 
 class DashboardController extends Controller
 {
+
     public function index()
     {
         $employeesCount = Employee::count();
@@ -18,20 +19,33 @@ class DashboardController extends Controller
         $presencesCount = Presence::count();
         $latestTasks = Task::availableEmployee()->orderBy('created_at')->get();
 
-        // Chart data
-        $chartData = Presence::selectRaw('
-        month(date) as month,
-        count(*) as total
-        ')
-            ->where('status', 'present')
+        $chartData = Presence::selectRaw("
+            MONTH(date) as month,
+            SUM(CASE WHEN status = 'present' THEN 1 ELSE 0 END) as present_total,
+            SUM(CASE WHEN status = 'absent' THEN 1 ELSE 0 END) as absent_total
+        ")
             ->groupBy('month')
             ->orderBy('month')
-            ->get()
-            ->map(fn ($p) => [
-                'month' => $p->month,
-                'total' => $p->total,
-            ]);
+            ->get();
 
-        return view('dashboard.index', compact('employeesCount', 'departmentsCount', 'payrollsCount', 'presencesCount', 'latestTasks', 'chartData'));
+        $chartPresentData = $chartData->map(fn($row) => [
+            'month' => $row->month,
+            'total' => (int) $row->present_total,
+        ]);
+
+        $chartAbsentData = $chartData->map(fn($row) => [
+            'month' => $row->month,
+            'total' => (int) $row->absent_total,
+        ]);
+
+        return view('dashboard.index', compact(
+            'employeesCount',
+            'departmentsCount',
+            'payrollsCount',
+            'presencesCount',
+            'latestTasks',
+            'chartPresentData',
+            'chartAbsentData'
+        ));
     }
 }

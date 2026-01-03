@@ -110,31 +110,23 @@
             class="min-h-102.5 shadow-2xs flex flex-col rounded-xl border border-gray-200 bg-white p-4 md:p-5 dark:border-neutral-700 dark:bg-neutral-800">
             <!-- Header -->
             <div class="flex flex-wrap items-center justify-between gap-2">
-                <div>
-                    <h2 class="text-sm text-gray-500 dark:text-neutral-500">
-                        Income
-                    </h2>
-                    <p class="text-xl font-medium text-gray-800 sm:text-2xl dark:text-neutral-200">
-                        $126,238.49
-                    </p>
-                </div>
-
-                <div>
-                    <span
-                        class="py-1.25 inline-flex items-center gap-x-1 rounded-md bg-teal-100 px-1.5 text-xs font-medium text-teal-800 dark:bg-teal-500/10 dark:text-teal-500">
-                        <svg class="inline-block size-3.5" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 5v14" />
-                            <path d="m19 12-7 7-7-7" />
+                <h2 class="text-sm text-gray-500 dark:text-neutral-500">
+                    Attendance Overview
+                </h2>
+                <div class="flex items-center gap-x-3 text-sm text-gray-500 dark:text-neutral-500">
+                    <span class="flex items-center gap-x-1">
+                        <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0" />
                         </svg>
-                        25%
+                        Total Records
                     </span>
                 </div>
             </div>
             <!-- End Header -->
 
-            <div id="hs-multiple-bar-charts"></div>
+            <div id="presence-bar-chart"></div>
         </div>
         <!-- End Card -->
     </div>
@@ -323,7 +315,8 @@
 
     @push('foot_js')
         <script>
-            window.presenceChartData = @json($chartData);
+            window.presenceChartData = @json($chartPresentData);
+            window.absenceChartData = @json($chartAbsentData);
         </script>
     @endpush
 </x-dashboard-layout>
